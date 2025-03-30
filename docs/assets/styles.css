@@ -39,6 +39,45 @@ body {
     max-width: 500px; /* Fiksna širina za sve uređaje */
     padding: 20px;
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Hero section fixes for stability */
+.hero-section {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background-color: transparent; /* Remove gray background */
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2); /* Slight dark overlay for better text visibility */
+    z-index: 1; /* Ensure overlay is above image */
 }
 
 .decorative-border {
@@ -510,17 +549,20 @@ input[type="radio"]:checked::before {
     max-width: 500px;
     margin: 0 auto;
     overflow: hidden;
+    aspect-ratio: 4/3;
+    background-color: transparent; /* Remove gray background */
 }
 
 .hero-image {
     width: 100%;
-    height: auto;
-    display: block;
-    margin: 0; /* Uklonjena margina */
-    padding: 0; /* Uklonjen padding */
-    box-sizing: border-box;
-    max-width: 100%;
+    height: 100%;
     object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute; /* Dodato da bi slika ispunila ceo prostor */
+    top: 0;
+    left: 0;
 }
 
 .hero-overlay {
@@ -531,8 +573,11 @@ input[type="radio"]:checked::before {
     bottom: 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2); /* Slight dark overlay for better text visibility */
+    z-index: 1; /* Ensure overlay is above image */
 }
 
 .hero-title {
@@ -1316,6 +1361,16 @@ input[type="radio"]:checked::before {
 
     .date-container {
         margin-top: 10px;
+    }
+
+    .hero-section {
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .hero-image {
+        width: 100%;
+        height: 100%;
     }
 }
 
