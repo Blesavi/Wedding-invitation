@@ -17,6 +17,10 @@ body {
     align-items: flex-start;
     min-height: 100vh;
     position: relative;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0 auto;
 }
 
 .container {
@@ -30,6 +34,10 @@ body {
     z-index: 3;
     border: 1px solid #d9b08c;
     overflow: hidden;
+    width: 100%;
+    max-width: 500px; /* Fiksna širina za sve uređaje */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .decorative-border {
@@ -53,6 +61,8 @@ body {
 .divider-flower {
     height: 30px;
     margin: 0 10px;
+    width: 40px;
+    height: auto;
 }
 
 .flower-corner {
@@ -60,6 +70,8 @@ body {
     width: 80px;
     opacity: 0.3;
     z-index: 1;
+    width: 60px;
+    height: auto;
 }
 .flower-corner.top-left { top: 10px; left: 10px; }
 .flower-corner.top-right { top: 10px; right: 10px; transform: scaleX(-1); }
@@ -97,6 +109,8 @@ h1 {
     letter-spacing: 1px;
     text-shadow: 2px 2px 4px rgba(157, 46, 35, 0.3);
     position: relative;
+    font-size: 24px !important;
+    line-height: 1.4;
 }
 
 h1::after {
@@ -120,6 +134,7 @@ h2 {
     text-shadow: 2px 2px 4px rgba(157, 46, 35, 0.3);
     position: relative;
     display: inline-block;
+    font-size: 28px !important;
 }
 
 h3 {
@@ -128,6 +143,7 @@ h3 {
     color: #6d3b24;
     font-weight: 600;
     text-shadow: 1px 1px 2px rgba(109, 59, 36, 0.2);
+    font-size: 22px !important;
 }
 
 p {
@@ -136,6 +152,8 @@ p {
     text-align: center;
     color: #6d3b24; /* Prilagodite boju teksta */
     margin: 20px 0;
+    font-size: 16px !important;
+    line-height: 1.6;
 }
 
 .venue {
@@ -191,6 +209,11 @@ p {
     overflow: hidden;
     border: 1px solid #d9b08c;
     box-shadow: 0 5px 15px rgba(109, 59, 36, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .rsvp-form::before {
@@ -252,6 +275,8 @@ p {
     font-size: 18px;
     border-radius: 5px;
     transition: all 0.3s ease;
+    width: 100%;
+    max-width: 460px;
 }
 
 .form-control:focus {
@@ -385,6 +410,7 @@ input[type="radio"]:checked::before {
     color: #9d2e23;
     text-align: center;
     animation: pulse 1s infinite; /* Dodata animacija */
+    font-size: 32px !important;
 }
 
 .divider {
@@ -392,6 +418,9 @@ input[type="radio"]:checked::before {
     align-items: center;
     margin: 30px 0;
     position: relative;
+    margin: 30px auto;
+    width: 100%;
+    max-width: 500px;
 }
 
 .divider-line {
@@ -425,6 +454,9 @@ input[type="radio"]:checked::before {
     width: 100%;
     display: block;
     transition: transform 0.5s ease;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
 }
 
 .image-container:hover img {
@@ -448,6 +480,8 @@ input[type="radio"]:checked::before {
     font-weight: 500;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #e4dc9e;
+    width: 100%;
+    max-width: 500px;
 }
 
 .location-overlay:hover {
@@ -478,6 +512,7 @@ input[type="radio"]:checked::before {
     margin: 0; /* Uklonjena margina */
     padding: 0; /* Uklonjen padding */
     box-sizing: border-box;
+    max-width: 500px;
 }
 
 .hero-overlay {
@@ -787,4 +822,108 @@ input[type="radio"]:checked::before {
     }
 
     .flower-decor { display: none; }
+}
+
+/* Mobile-first responsive styles */
+.page-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px; /* Fiksna širina za sve uređaje */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+/* Ensure text stays the same size across devices */
+h1 {
+    font-size: 24px !important;
+    line-height: 1.4;
+}
+
+h2 {
+    font-size: 28px !important;
+}
+
+h3 {
+    font-size: 22px !important;
+}
+
+p {
+    font-size: 16px !important;
+    line-height: 1.6;
+}
+
+/* Form controls fixed width */
+.rsvp-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 460px;
+}
+
+/* Fixed image sizes */
+.flower-corner {
+    width: 60px;
+    height: auto;
+}
+
+.divider-flower {
+    width: 40px;
+    height: auto;
+}
+
+/* Countdown timer fixed size */
+#timer {
+    font-size: 32px !important;
+}
+
+/* Location overlays */
+.location-overlay {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Ensure proper spacing */
+.divider {
+    margin: 30px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Force identical rendering across devices */
+* {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
