@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Срђан и Анђела - Позивница за венчање</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="assets/intro.mp3" type="audio/mpeg">
+        Ваш прегледач не подржава HTML5 аудио. Преузмите музику <a href="assets/intro.mp3">овде</a>.
+    </audio>
+    <div class="floating-flowers" id="floatingFlowers"></div>
+    
+    <div class="page-container">
+        <div class="container">
+            <div class="decorative-border"></div>
+            
+            <!-- Cvetni elementi u uglovima kontejnera -->
+            <img src="assets/belocvece.png" class="flower-corner bottom-left">
+            <img src="assets/belocvece.png" class="flower-corner bottom-right">
+            
+            <div class="hero-section">
+                <img class="hero-image" src="assets/groom-putting-ring-bride-s-finger.jpg" alt="Срђан и Анђела">
+                <div class="hero-overlay">
+                    <!-- Naslov preko prve slike, iznad imена -->
+                    <h1 class="invitation-title">С ВЕЛИКИМ ЗАДОВОЉСТВОМ ВАС ПОЗИВАМО НА НАШЕ ВЕНЧАЊЕ</h1>
+                    <!-- Centralni deo sa okvirom -->
+                    <div class="names-container">
+                        <h2 class="names glow-text">Анђела <span class="heart">❤</span> Срђан</h2>
+                        <!-- <div class="wedding-date glow-text">12. јул 2025.</div>
+                        <div class="wedding-time glow-text">19:00</div> -->
+                        
+                        <div class="date-container">
+                            <div class="date-left">
+                                <div class="day">Субота</div>
+                            </div>
+                            <div class="date-center">
+                                <span class="line-horizontal"></span>
+                                <span class="date-number">12</span>
+                                <span class="line-horizontal"></span>
+                            </div>
+                            <div class="date-right">
+                                <div class="month">Јул</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider">
+                <div class="divider-line"></div>
+                <img src="assets/belocvece.png" class="divider-flower">
+                <div class="divider-line"></div>
+            </div>
+
+                        <p>
+                Постоје тренуци који заувек остају у сећању и добију праву вредност тек кад се поделе са другим људима. Зато Вас позивамо да својим присуством увеличате наш дан.
+            </p>
+            
+            <div class="divider">
+                <div class="divider-line"></div>
+                <img src="assets/belocvece.png" class="divider-flower">
+                <div class="divider-line"></div>
+            </div>
+            
+            <div class="venue">
+                <div class="church-venue">
+                    <div class="title-with-icon">
+                        <img src="assets/rings3.png" alt="Rings Icon" class="title-icon">
+                        <h3>ЦРКВА СВЕТОГ ПАНТЕЛЕЈМОНА</h3>
+                        <p class="time-highlight">17:00</p>
+                    </div>
+                    <p class="ceremony-text">
+                        На дан Господњи, 12. јула 2025. године, у 17:00 часова, 
+                        у цркви Светог Пантелејмона у Нишу, уз Божји благослов 
+                        и присуство драгих људи, везаћемо наше животе у светињу брака.
+                    </p>
+                    <div class="image-container">
+                        <img src="assets/crkva.jpg" alt="Crkva Svetog Pantelejmona">
+                        <a href="https://maps.app.goo.gl/HHd7LTPr4JgvToMa9" target="_blank" class="location-overlay">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span>Погледај локацију</span>
+                        </a>
+                    </div>
+                    <p>Улица Краља Милутина 12, Ниш</p>
+                </div>
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <img src="assets/belocvece.png" class="divider-flower">
+                    <div class="divider-line"></div>
+                </div>
+                <div class="reception-venue">
+                    <div class="title-with-icon">
+                        <h3>ХОТЕЛ РЕСТОРАН МАДЕРА</h3>
+                        <p class="time-highlight">19:00</p> <!-- Vreme restorana -->
+                    </div>
+                    <p class="reception-text">
+                        Након церемоније част нам је да вас угостимо на весељу 
+                        у хотелу "Мадера" (на отвореном) са почетком од 19:00 часова.
+                    </p>
+                    <div class="image-container">
+                        <img src="assets/slikaRestoran.jpg" alt="Hotel Madera">
+                        <a href="https://maps.app.goo.gl/HHd7LTPr4JgvToMa9" target="_blank" class="location-overlay">
+                            <i class="fas fa-utensils location-icon"></i>
+                            <span>Локација ресторана</span>
+                        </a>
+                    </div>
+                    <p>Булевар Др Зорана Ђинђића 18а, Ниш</p>
+                </div>
+            </div>
+            
+            <div class="countdown">
+                <div class="image-overlay">
+                    <img src="assets/wedding-bands-hands-bride-groom-with-beautiful-wedding-bouquet-made-greenery-white-flowers.jpg" alt="Срђан и Анђела">
+                </div>
+                <p>До нашег венчања остало је:</p>
+                <div id="timer">
+                    104 : 
+                    13 : 
+                    00 : 
+                    13
+                </div>
+                <p><small>дана : сати : минута : секунди</small></p>
+            </div>
+            
+            <div class="divider">
+                <div class="divider-line"></div>
+                <img src="assets/bohocvece1.png" class="divider-flower">
+                <div class="divider-line"></div>
+            </div>
+            
+            <div class="rsvp">
+                <h3>ПОТВРДА ДОЛАСКА</h3>
+                <p>Молимо вас да потврдите ваше присуство до 1. јула 2025.</p>
+                
+                <div class="rsvp-form">
+                    <!-- Cvetni elementi u uglovima форме -->
+                    <img src="assets/belocvece.png" class="flower-corner top-left">
+                    <img src="assets/belocvece.png" class="flower-corner top-right">
+                    <img src="assets/belocvece.png" class="flower-corner bottom-left">
+                    <img src="assets/belocvece.png" class="flower-corner bottom-right">
+                    
+                    <div class="rsvp-header">ПОТВРДИТЕ ВАШ ДОЛАЗАК</div>
+                    
+                    <div class="form-group">
+                        <label for="name" class="form-label">ИМЕ и ПРЕЗИМЕ</label>
+                        <input type="text" id="name" class="form-control" placeholder="Унесите своје име и презиме" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">ПОТВРЂУЈЕМ ДОЛАЗАК</label>
+                        <div class="radio-group">
+                            <input type="radio" id="coming" name="attendance" value="coming" checked>
+                            <label for="coming" class="radio-label">Долазим са радошћу</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="not-coming" name="attendance" value="not-coming">
+                            <label for="not-coming" class="radio-label">Нажалост, не могу да присуствујем</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="guests-group">
+                        <label for="guests" class="form-label">БРОЈ ГОСТИЈУ КОЈИ ДОЛАЗЕ СА МНОМ</label>
+                        <input type="number" id="guests" class="form-control" value="0" min="0" max="5">
+                        <div class="form-helper">Молимо унесите број (0-5)</div>
+                    </div>
+                    
+                    <div class="form-group" id="guests-names-group">
+                        <label for="guests-names" class="form-label">ИМЕНА ГОСТИЈУ КОЈИ ДОЛАЗЕ СА МНОМ</label>
+                        <textarea id="guests-names" class="form-control" rows="3" placeholder="Унесите имена гостију, раздвојена зарезима"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">ПОРУКА ЗА МЛАДЕНЦЕ (опционо)</label>
+                        <textarea id="message" class="form-control" rows="3" placeholder="Ваша порука за нас..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-rsvp">
+                        <i class="fas fa-paper-plane"></i> ПОТВРДИ 
+                    </button>
+                    
+                    <div class="confirmation-message" id="confirmation-message">
+                        <i class="fas fa-heart" style="color: #e4dc9e; font-size: 24px; margin-bottom: 10px;"></i>
+                        <p>Хвала вам на потврди! Ваш одговор је успешно забележен.</p>
+                        <p>Радујемо се што ћемо вас видети на нашем великом дану!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider">
+                <div class="divider-line"></div>
+                <img src="assets/bohocvece1.png" class="divider-flower">
+                <div class="divider-line"></div>
+            </div>
+            
+            <div class="footer-flowers">
+                <img src="assets/bohocvece1.png" alt="Cvetni vijenac">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,790 @@
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background-color: #f9f3e9;
+    color: #6d3b24;
+    text-align: center;
+    padding: 20px;
+    background-image: url('https://img.freepik.com/free-photo/vintage-grunge-paper-background_1048-10911.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    position: relative;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(249, 243, 233, 0.95);
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 25px rgba(109, 59, 36, 0.2);
+    position: relative;
+    z-index: 3;
+    border: 1px solid #d9b08c;
+    overflow: hidden;
+}
+
+.decorative-border {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid #d9b08c;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+/* Stilovi za cvetne elemente */
+.flower-divider {
+    height: 40px;
+    margin: 0 15px;
+    opacity: 0.8;
+}
+
+.divider-flower {
+    height: 30px;
+    margin: 0 10px;
+}
+
+.flower-corner {
+    position: absolute;
+    width: 80px;
+    opacity: 0.3;
+    z-index: 1;
+}
+.flower-corner.top-left { top: 10px; left: 10px; }
+.flower-corner.top-right { top: 10px; right: 10px; transform: scaleX(-1); }
+.flower-corner.bottom-left { bottom: 10px; left: 10px; transform: scaleY(-1); }
+.flower-corner.bottom-right { bottom: 10px; right: 10px; transform: scale(-1); }
+
+.flower-decor {
+    position: fixed;
+    width: 150px;
+    opacity: 0.1;
+    z-index: 0;
+}
+.flower-decor.top-left { top: 20px; left: 20px; }
+.flower-decor.top-right { top: 20px; right: 20px; transform: scaleX(-1); }
+.flower-decor.bottom-left { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.flower-decor.bottom-right { bottom: 20px; right: 20px; transform: scale(-1); }
+
+.date-flower {
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.footer-flowers img {
+    max-width: 200px;
+    margin: 20px auto;
+    opacity: 0.7;
+}
+
+h1 {
+    font-size: 32px;
+    margin: 20px 0;
+    font-weight: 600;
+    color: #9d2e23;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(157, 46, 35, 0.3);
+    position: relative;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #9d2e23, transparent);
+    /* Uklonjena animacija */
+}
+
+
+
+h2 {
+    font-size: 48px;
+    margin: 25px 0;
+    font-weight: 700;
+    color: #9d2e23;
+    text-shadow: 2px 2px 4px rgba(157, 46, 35, 0.3);
+    position: relative;
+    display: inline-block;
+}
+
+h3 {
+    font-size: 28px;
+    margin: 20px 0;
+    color: #6d3b24;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(109, 59, 36, 0.2);
+}
+
+p {
+    font-size: 28px;
+    line-height: 1.6;
+    text-align: center;
+    color: #6d3b24; /* Prilagodite boju teksta */
+    margin: 20px 0;
+}
+
+.venue {
+    margin: 40px 0;
+    position: relative;
+}
+
+.venue::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: #d9b08c;
+    margin: 40px 0;
+    position: relative;
+}
+
+.venue::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 20px);
+    width: 100px;
+    height: 20px;
+    background-image: url('assets/belocvece.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+}
+
+.date {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 30px 0;
+    color: #9d2e23;
+    text-shadow: 1px 1px 2px rgba(157, 46, 35, 0.2);
+}
+
+.rsvp {
+    margin: 40px 0;
+}
+
+.rsvp-form {
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: #f8f1e5;
+    padding: 30px;
+    border-radius: 10px;
+    color: #6d3b24;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #d9b08c;
+    box-shadow: 0 5px 15px rgba(109, 59, 36, 0.1);
+}
+
+.rsvp-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #e4dc9e, #9d2e23, #e4dc9e);
+}
+
+.rsvp-header {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 15px;
+    color: #9d2e23;
+}
+
+.rsvp-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #9d2e23, transparent);
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #6d3b24;
+}
+
+.form-label:after {
+    content: " *";
+    color: #9d2e23;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(249, 243, 233, 0.8);
+    border: 1px solid #d9b08c;
+    color: #6d3b24;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #9d2e23;
+    box-shadow: 0 0 5px rgba(157, 46, 35, 0.3);
+}
+
+.form-control::placeholder {
+    color: rgba(109, 59, 36, 0.6);
+    font-style: italic;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.radio-label {
+    margin-left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6d3b24;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #9d2e23;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="radio"]:checked::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: #9d2e23;
+    border-radius: 50%;
+}
+
+.form-helper {
+    font-size: 16px;
+    color: rgba(109, 59, 36, 0.8);
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.submit-btn {
+    background-color: #9d2e23;
+    color: #f9f3e9;
+    border: none;
+    padding: 12px 40px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 0;
+    font-family: 'Cormorant Garamond', serif;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0 3px 10px rgba(157, 46, 35, 0.3);
+}
+
+.submit-btn:hover {
+    background-color: #8a281e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(157, 46, 35, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.footer {
+    margin-top: 40px;
+    font-size: 18px;
+    color: #6d3b24;
+}
+
+.countdown {
+    position: relative; /* Omogućava pozicioniranje sadržaja preko slike */
+    text-align: center; /* Centriranje sadržaja */
+    padding: 20px; /* Unutrašnji razmak */
+    color: #fff; /* Bela boja za tekst */
+    font-family: 'Shippori Mincho', serif; /* Font za tekst */
+    overflow: hidden; /* Sprečava da sadržaj viri van pravougaonika */
+    border-radius: 10px; /* Zaobljeni uglovi pravougaonika */
+    background-color:#eeded7;
+}
+
+.image-overlay {
+    position: absolute; /* Pozicionira sliku u pozadini */
+    top: -20px; /* Pomera sliku nagore za 20px */
+    left: 50%;
+    transform: translateX(-50%); /* Centriranje slike horizontalno */
+    width: 100%; /* Slika zauzima širinu kontejnera */
+    height: calc(100% + 40px); /* Povećava visinu slike za 40px da bi se isekli gornji i donji delovi */
+    opacity: 0.3; /* Transparentnost slike */
+    z-index: 0; /* Postavlja sliku iza teksta */
+    object-fit: cover; /* Isecanje slike da se uklopi u pravougaonik */
+}
+
+.image-overlay img {
+    width: 100%; /* Slika zauzima širinu kontejnera */
+    height: 100%; /* Slika zauzima visinu kontejnera */
+    object-fit: cover; /* Isecanje slike da se uklopi u pravougaonik */
+    border-radius: 10px; /* Zaobljeni uglovi slike */
+}
+
+.countdown p, .countdown #timer {
+    position: relative; /* Pozicioniranje teksta iznad slike */
+    z-index: 1; /* Prikazuje tekst iznad slike */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Blaga senka za bolju čitljivost */
+}
+
+#timer {
+    font-size: 48px; /* Veličina fonta za brojač */
+    font-weight: bold; /* Podebljan tekst */
+    margin: 10px 0; /* Razmak između elemenata */
+    font-size: 48px;
+    font-weight: bold;
+    color: #9d2e23;
+    text-align: center;
+    animation: pulse 1s infinite; /* Dodata animacija */
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #d9b08c;
+}
+
+.church-venue, .reception-venue {
+    margin: 30px 0;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border: 1px solid #d9b08c;
+}
+
+.image-container:hover {
+    transform: translateY(-5px);
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.03);
+}
+
+.location-overlay {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(157, 46, 35, 0.9);
+    color: #f8f1e5;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e4dc9e;
+}
+
+.location-overlay:hover {
+    background-color: rgba(157, 46, 35, 1);
+    transform: scale(1.05);
+    color: #e4dc9e;
+}
+
+.location-icon {
+    font-size: 20px;
+}
+
+.hero-section {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin: 0; /* Uklonjene negativne margine */
+    padding: 0; /* Uklonjen padding */
+    overflow: hidden;
+    border-radius: 5px; /* Opcionalno: zaobljeni uglovi */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Opcionalno: senka */
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0; /* Uklonjena margina */
+    padding: 0; /* Uklonjen padding */
+    box-sizing: border-box;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+.hero-overlay .names {
+    font-size: clamp(42px, 6vw, 62px); /* Blago povećana veličina fonta */
+    font-weight: 700;
+    margin-bottom: 0px;
+    letter-spacing: 2px;
+    color: #9d2e23;
+    position: relative;
+    display: inline-block;
+    text-shadow: 
+        1px 0 0 #e4dc9e, 
+        -1px 0 0 #e4dc9e, 
+        0 1px 0 #e4dc9e, 
+        0 -1px 0 #e4dc9e, 
+        0 0 1px rgba(228, 220, 158, 0.5); /* Smanjena debljina ivice */
+}
+
+.heart {
+    color: #e4dc9e;
+    margin: 0 10px;
+    animation: pulse 1.5s infinite;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Stil za srce sa senkom u boji */
+.heart {
+    display: inline-block;
+    color: #e4dc9e; /* Originalna boja srca */
+    font-size: 1.5em;
+    animation: pulse 1.5s infinite;
+    text-shadow: 
+        0 0 10px rgba(228, 220, 158, 0.8), /* Blaga spoljašnja senka */
+        0 0 20px rgba(228, 220, 158, 0.6); /* Intenzivnija spoljašnja senka */
+}
+
+/* Animacija pulsiranja */
+@keyframes pulse {
+    0% {
+        transform: scale(1); /* Početna veličina */
+        text-shadow: 
+            0 0 10px rgba(228, 220, 158, 0.8), 
+            0 0 20px rgba(228, 220, 158, 0.6);
+    }
+    50% {
+        transform: scale(1.1); /* Blago povećanje srca */
+        text-shadow: 
+            0 0 15px rgba(228, 220, 158, 1), 
+            0 0 30px rgba(228, 220, 158, 0.8); /* Intenzivnija senka */
+    }
+    100% {
+        transform: scale(1); /* Povratak na početnu veličinu */
+        text-shadow: 
+            0 0 10px rgba(228, 220, 158, 0.8), 
+            0 0 20px rgba(228, 220, 158, 0.6);
+    }
+}
+
+.hero-overlay .wedding-date,
+.hero-overlay .wedding-time {
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 600;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 5px 0;
+    color: #fff;
+}
+
+.confirmation-message {
+    display: none;
+    padding: 20px;
+    background-color: rgba(13, 51, 33, 0.9);
+    color: #e4dc9e;
+    border-radius: 5px;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.floating-flowers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.flower {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+}
+
+.glow-text {
+    color: #9d2e23;
+    text-shadow: 
+        2px 0 0 #e4dc9e, 
+        -2px 0 0 #e4dc9e, 
+        0 2px 0 #e4dc9e, 
+        0 -2px 0 #e4dc9e, 
+        1px 1px 0 #e4dc9e, 
+        -1px -1px 0 #e4dc9e, 
+        1px -1px 0 #e4dc9e, 
+        -1px 1px 0 #e4dc9e,
+        0 0 8px rgba(228, 220, 158, 0.5);
+}
+
+.ceremony-text {
+    font-size: 20px; /* Povećana veličina fonta */
+    line-height: 1.8; /* Poboljšana čitljivost */
+    margin: 20px 0;
+    padding: 20px; /* Dodato više unutrašnjeg razmaka */
+    background-color: rgba(233, 215, 197, 0.4); /* Svetlija pozadina */
+    border-radius: 5px; /* Zaobljeni uglovi */
+    font-style: italic;
+    border-left: 4px solid #9d2e23; /* Istaknutija leva linija */
+    color: #6d3b24; /* Boja teksta */
+}
+
+.reception-text {
+    font-size: 20px; /* Povećana veličina fonta */
+    line-height: 1.8; /* Poboljšana čitljivost */
+    margin: 20px 0;
+    padding: 20px; /* Dodato više unutrašnjeg razmaka */
+    background-color: rgba(233, 215, 197, 0.4); /* Svetlija pozadina */
+    border-radius: 5px; /* Zaobljeni uglovi */
+    font-style: italic;
+    border-left: 4px solid #9d2e23; /* Istaknutija leva linija */
+    color: #6d3b24; /* Boja teksta */
+}
+
+.invitation-title {
+    font-size: clamp(20px, 3.5vw, 32px); /* Smanjena veličina fonta */
+    color: #fff; /* Bela boja */
+    margin-bottom: 140px; /* Razmak ispod naslova */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Blaga senka za bolju čitljivost */
+    transform: translateY(01px); /* Pomeranje nadole za 35px */
+    position: relative;
+    font-family: 'Cormorant Garamond', serif; /* Originalni font */
+    font-weight: 600; /* Podebljan tekst */
+    text-align: center; /* Centriran tekst */
+}
+
+.date-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* Razmak između sekcija */
+    text-align: center;
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif; /* Promenite font ako želite ćirilični */
+    margin: 20px 0; /* Razmak iznad i ispod */
+}
+
+.date-left, .date-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px; /* Veličina za Субота, Јул, итд. */
+}
+
+.date-center {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Razmak između linija i broja */
+}
+
+.line-horizontal {
+    width: 50px; /* Dužina linije */
+    height: 2px; /* Debljina linije */
+    background-color: #fff; /* Boja linije */
+    opacity: 0.8;
+}
+
+.date-center .date-number {
+    font-size: 64px; /* Veličina za broj 12 */
+    font-weight: 700;
+    font-family: 'Shippori Mincho', serif; /* Promenjen font za broj 12 */
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Blaga senka za bolju čitljivost */
+}
+
+.date-left .time, .date-right .year {
+    font-size: 14px; /* Manji font za време и годину */
+    margin-top: 5px;
+    color: #d9b08c; /* Svetlija boja za dodatni tekst */
+}
+
+.title-with-icon {
+    display: flex;
+    align-items: center; /* Poravnanje elemenata po sredini */
+    gap: 10px; /* Razmak između slike, naslova i vremena */
+    text-align: center; /* Centriranje sadržaja */
+    justify-content: center; /* Centriranje cele sekcije */
+}
+
+.title-icon {
+    width: 68px; /* Povećano za 70% */
+    height: auto; /* Automatsko prilagođavanje visine */
+    margin-right: 10px; /* Razmak između slike i naslova */
+}
+
+.time-text {
+    font-size: 24px; /* Povećana veličina fonta za vreme */
+    font-weight: 700; /* Podebljan tekst */
+    color: #9d2e23; /* Tamnocrvena boja za isticanje */
+    margin: 0; /* Uklonjen dodatni razmak */
+    text-align: center; /* Centriranje vremena */
+}
+
+.time-highlight {
+    font-size: 51px; /* Smanjeno za 20% (originalno 64px) */
+    font-weight: 700; /* Podebljan tekst */
+    font-family: 'Shippori Mincho', serif; /* Font za vreme */
+    color: #9d2e23; /* Tamnocrvena boja za isticanje */
+    text-align: center; /* Centrirano ispod naslova */
+    margin: 0; /* Uklonjen dodatni razmak */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Blaga senka za bolju vidljivost */
+}
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 30px;
+    }
+    
+    h1 {
+        font-size: 28px;
+    }
+    
+    h2 {
+        font-size: 36px;
+    }
+
+    .flower-decor { width: 120px; }
+    .flower-corner { width: 60px; }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 0 20px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    h2 {
+        font-size: 32px;
+    }
+    
+    h3 {
+        font-size: 24px;
+    }
+    
+    p {
+        font-size: 18px;
+    }
+    
+    .rsvp-header {
+        font-size: 28px;
+    }
+    
+    .hero-section {
+        margin: -20px -20px 20px -20px;
+    }
+
+    .flower-decor { width: 80px; }
+    .flower-corner { width: 40px; }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        margin: 0 10px;
+    }
+    
+    .rsvp-form {
+        padding: 20px;
+    }
+    
+    .form-label {
+        font-size: 18px;
+    }
+    
+    .flower-divider {
+        height: 30px;
+        margin: 0 8px;
+    }
+
+    .flower-decor { display: none; }
+}
