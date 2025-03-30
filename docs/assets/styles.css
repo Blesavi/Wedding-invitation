@@ -537,14 +537,14 @@ input[type="radio"]:checked::before {
 }
 
 .hero-title {
-    margin-top: 20px;
+    margin-top: 10px !important; /* Reduced from 20px to 10px */
+    position: absolute;
+    top: 10px; /* Reduced from 20px to 10px */
+    width: 100%;
     font-size: 18px;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     text-align: center;
-    position: absolute;
-    top: 20px;
-    width: 100%;
 }
 
 .hero-names {
@@ -552,10 +552,10 @@ input[type="radio"]:checked::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 42px;
+    font-size: 100px; /* Povećano sa 42px na 50px (20% više) */
     color: #9d2e23;
     text-shadow: 
-        0px 0 0 #e4dc9e, /* smanjeno sa 2px na 1px */
+        0px 0 0 #e4dc9e,
         -1px 0 0 #e4dc9e,
         0 1px 0 #e4dc9e,
         0 -1px 0 #e4dc9e;
@@ -563,6 +563,26 @@ input[type="radio"]:checked::before {
     width: 100%;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
+}
+
+/* Hero names styling with higher specificity */
+.hero-section .hero-names {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px !important; /* Increased from 42px */
+    color: #9d2e23;
+    text-shadow: 
+        1px 0 0 #e4dc9e,
+        -1px 0 0 #e4dc9e,
+        0 1px 0 #e4dc9e,
+        0 -1px 0 #e4dc9e;
+    text-align: center;
+    width: 100%;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    z-index: 2;
 }
 
 .hero-date {
@@ -1105,6 +1125,117 @@ input[type="radio"]:checked::before {
 }
 
 /* New specific class for date lines */
+.date-line {
+    width: 40px;
+    height: 1px;
+    background-color: #ffffff;
+    display: inline-block;
+    margin: 0 15px;
+    vertical-align: middle;
+}
+
+/* Specialized date styles with adjusted positioning */
+.hero-date-container {
+    position: absolute;
+    bottom: 60px; /* Spušteno za 20px (sa 40px na 60px) */
+    left: 48%; /* Blago pomereno u levo sa 50% na 48% */
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    text-align: center;
+}
+
+/* Date number and lines styling */
+.hero-date-container .date-center {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-line {
+    width: 40px;
+    height: 1px;
+    background-color: #ffffff;
+    display: inline-block;
+    margin: 0 15px;
+    vertical-align: middle;
+}
+
+/* Override for date container positioning */
+.hero-date-container {
+    position: absolute;
+    bottom: 40px !important; /* Force position at bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: auto;
+    text-align: center;
+    z-index: 2; /* Ensure it stays on top */
+}
+
+/* Date styling */
+.hero-date-container .date-center {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-number {
+    font-size: 45px !important;
+    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Line styling */
+.date-line {
+    width: 40px;
+    height: 1px;
+    background-color: #ffffff;
+    display: inline-block;
+    margin: 0 15px;
+    vertical-align: middle;
+}
+
+/* Consolidated hero date container styles */
+.hero-date-container {
+    position: absolute;
+    bottom: 20px !important; /* Force position closer to bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: auto;
+    text-align: center;
+    z-index: 2;
+}
+
+/* Date number styling */
+.hero-date-container .date-number {
+    font-size: 45px !important;
+    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Day and month styling */
+.hero-date-container .day,
+.hero-date-container .month {
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Line styling */
 .date-line {
     width: 40px;
     height: 1px;
