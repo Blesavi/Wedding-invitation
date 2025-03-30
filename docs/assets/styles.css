@@ -139,12 +139,11 @@ h2 {
 }
 
 h3 {
-    font-size: 28px;
-    margin: 20px 0;
+    font-size: 22px !important;
+    margin: 10px 0; /* Reduced margins */
     color: #6d3b24;
     font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(109, 59, 36, 0.2);
-    font-size: 22px !important;
+    line-height: 1.2;
 }
 
 p {
@@ -974,16 +973,18 @@ input[type="radio"]:checked::before {
 
 .title-with-icon {
     display: flex;
-    align-items: center; /* Poravnanje elemenata po sredini */
-    gap: 10px; /* Razmak između slike, naslova i vremena */
-    text-align: center; /* Centriranje sadržaja */
-    justify-content: center; /* Centriranje cele sekcije */
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Reduced from 10px */
+    text-align: center;
+    margin: 10px 0; /* Reduced vertical margin */
+    padding: 0 10px;
 }
 
 .title-icon {
-    width: 68px; /* Povećano za 70% */
-    height: auto; /* Automatsko prilagođavanje visine */
-    margin-right: 10px; /* Razmak između slike i naslova */
+    width: 40px; /* Reduced from 68px */
+    height: auto;
+    margin-right: 5px; /* Reduced from 10px */
 }
 
 .time-text {
@@ -995,18 +996,17 @@ input[type="radio"]:checked::before {
 }
 
 .time-highlight {
-    font-size: 51px; /* Smanjeno za 20% (originalno 64px) */
-    font-weight: 700; /* Podebljan tekst */
-    font-family: 'Shippori Mincho', serif; /* Font za vreme */
-    color: #9d2e23; /* Tamnocrvena boja za isticanje */
-    text-align: center; /* Centrirano ispod naslova */
-    margin: 0; /* Uklonjen dodatni razmak */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Blaga senka za bolju vidljivost */
+    font-size: 45px; /* Adjusted size */
+    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif; /* Changed from Shippori Mincho */
+    color: #9d2e23;
+    margin: 0;
+    line-height: 1;
+    padding: 0;
 }
 
 /* Datum - konsolidovani stilovi sa većim specifičnošću */
-.hero-overlay .date-container {
-    position: absolute;
+.date-container {
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
