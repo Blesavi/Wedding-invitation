@@ -91,17 +91,3 @@ const audio = document.querySelector('audio');
 if (audio) {
     audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
 }
-
-// Prevent pinch zoom on mobile
-document.addEventListener('touchmove', function (event) {
-    if (event.scale !== 1) {
-        event.preventDefault();
-    }
-}, { passive: false });
-
-// Prevent double-tap zoom
-document.addEventListener('touchend', function (event) {
-    if (event.changedTouches[0].target.click) {
-        event.preventDefault();
-    }
-}, { passive: false });
