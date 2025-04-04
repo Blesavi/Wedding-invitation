@@ -655,6 +655,48 @@ button {
   display: block; /* Osigurava da je dugme vidljivo */
 }
 
+/* Stilovi za srca koja se šire i blede */
+.small-heart {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #e4dc9e;
+  transform: rotate(45deg);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.small-heart::before,
+.small-heart::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #e4dc9e;
+  border-radius: 50%;
+}
+
+.small-heart::before {
+  top: -4px;
+  left: 0;
+}
+
+.small-heart::after {
+  top: 0;
+  left: -4px;
+}
+
+@keyframes moveAndFade {
+  0% {
+    transform: rotate(45deg) translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) translate(var(--tx), var(--ty));
+    opacity: 0;
+  }
+}
+
 /* Animations */
 @keyframes pulse {
   0% {

@@ -141,11 +141,49 @@ document.addEventListener("DOMContentLoaded", function () {
         audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
     }
 
-    // Dodavanje funkcionalnosti za pokretanje i zaustavljanje muzike klikom na srce
+    // Funkcija za kreiranje efekta sa srcima
+    const createHeartEffect = (x, y) => {
+        const numHearts = 10;
+        const radius = 100; // Razdaljina koju će srca preći
+
+        for (let i = 0; i < numHearts; i++) {
+            const smallHeart = document.createElement('div');
+            smallHeart.className = 'small-heart';
+            smallHeart.style.left = `${x}px`;
+            smallHeart.style.top = `${y}px`;
+            
+            // Računanje ugla za svako srce (ravnomerno raspoređeno u krug)
+            const angle = (i / numHearts) * 2 * Math.PI;
+            
+            // Postavljanje krajnjih koordinata za animaciju
+            const targetX = Math.cos(angle) * radius;
+            const targetY = Math.sin(angle) * radius;
+            
+            smallHeart.style.setProperty('--tx', `${targetX}px`);
+            smallHeart.style.setProperty('--ty', `${targetY}px`);
+            
+            // Dodavanje animacije
+            smallHeart.style.animation = 'moveAndFade 1s ease-out forwards';
+            
+            document.body.appendChild(smallHeart);
+
+            // Uklanjanje srca nakon animacije
+            setTimeout(() => {
+                smallHeart.remove();
+            }, 1000);
+        }
+    };
+
+    // Postavljanje event listenera na srce
     const heartElement = document.querySelector('.heart');
     if (heartElement) {
-        heartElement.style.cursor = 'pointer'; // Dodavanje kursora za klik
-        heartElement.addEventListener('click', function () {
+        heartElement.style.cursor = 'pointer';
+        heartElement.addEventListener('click', function (event) {
+            const rect = heartElement.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            // Pokretanje/zaustavljanje muzike
             const audio = document.querySelector('audio');
             if (audio) {
                 if (audio.paused) {
@@ -154,6 +192,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     audio.pause();
                 }
             }
+            
+            // Kreiranje efekta sa srcima
+            createHeartEffect(x, y);
         });
     }
 });
