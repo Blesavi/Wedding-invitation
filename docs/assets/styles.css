@@ -216,7 +216,7 @@ p {
 .date-number {
   font-size: clamp(30px, 10vw, 45px);
   font-weight: 700;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Shippori Mincho';
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
