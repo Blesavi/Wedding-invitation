@@ -149,10 +149,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('Server response:', response); // Log full response
 
                 // Since no-cors mode won't give us response details, we'll assume success if we get here
+                // Show confirmation message with animation
                 const confirmationMessage = document.getElementById('confirmation-message');
+                const formElements = form.querySelectorAll('.form-group, .submit-btn, .rsvp-header');
+                
+                // Hide all form elements
+                formElements.forEach(element => {
+                    element.style.display = 'none';
+                });
+                
+                // Show confirmation message
                 confirmationMessage.style.display = 'block';
+                // Trigger reflow
+                void confirmationMessage.offsetWidth;
+                confirmationMessage.classList.add('visible');
+                
+                // Reset form in background
                 form.reset();
-                confirmationMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Smooth scroll to confirmation message
+                confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
             } catch (error) {
                 console.error('Detailed error:', error); // Log detailed error
@@ -208,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
         audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
     }
 
-    // Funkcija za kreiranje efekta sa srcима
+    // Funkcija za kreiranje efekta sa srcima
     const createHeartEffect = (x, y) => {
         const numHearts = 25;
         const minRadius = 30;
