@@ -688,11 +688,11 @@ button {
 
 @keyframes moveAndFade {
   0% {
-    transform: rotate(45deg) translate(0, 0);
+    transform: rotate(45deg) translate(0, 0) rotate(0deg) scale(1);
     opacity: 1;
   }
   100% {
-    transform: rotate(45deg) translate(var(--tx), var(--ty));
+    transform: rotate(45deg) translate(var(--tx), var(--ty)) rotate(var(--rotation)) scale(var(--scale, 1));
     opacity: 0;
   }
 }

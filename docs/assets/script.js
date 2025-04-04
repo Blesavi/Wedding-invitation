@@ -143,8 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Funkcija za kreiranje efekta sa srcima
     const createHeartEffect = (x, y) => {
-        const numHearts = 10;
-        const radius = 100; // Razdaljina koju će srca preći
+        const numHearts = 25; // Povećan broj srca sa 10 na 25
+        const minRadius = 30; // Smanjena minimalna razdaljina za bliža srca
+        const maxRadius = 200; // Povećana maksimalna razdaljina za dalja srca
 
         for (let i = 0; i < numHearts; i++) {
             const smallHeart = document.createElement('div');
@@ -152,25 +153,35 @@ document.addEventListener("DOMContentLoaded", function () {
             smallHeart.style.left = `${x}px`;
             smallHeart.style.top = `${y}px`;
             
-            // Računanje ugla za svako srce (ravnomerno raspoređeno u krug)
-            const angle = (i / numHearts) * 2 * Math.PI;
+            // Nasumični ugao i razdaljina za prirodniji efekat
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = minRadius + Math.random() * (maxRadius - minRadius);
             
-            // Postavljanje krajnjih koordinata za animaciju
-            const targetX = Math.cos(angle) * radius;
-            const targetY = Math.sin(angle) * radius;
+            // Različite brzine za različita srca
+            const duration = 0.6 + Math.random() * 0.8; // 0.6-1.4 sekunde
+            
+            // Nasumične krajnje koordinate sa više varijacija
+            const targetX = Math.cos(angle) * radius * (0.7 + Math.random() * 0.6);
+            const targetY = Math.sin(angle) * radius * (0.7 + Math.random() * 0.6);
+            
+            // Nasumične veličine srca
+            const scale = 0.8 + Math.random() * 0.4; // 80-120% originalne veličine
+            smallHeart.style.transform = `scale(${scale})`;
             
             smallHeart.style.setProperty('--tx', `${targetX}px`);
             smallHeart.style.setProperty('--ty', `${targetY}px`);
+            smallHeart.style.setProperty('--duration', `${duration}s`);
+            smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
             
             // Dodavanje animacije
-            smallHeart.style.animation = 'moveAndFade 1s ease-out forwards';
+            smallHeart.style.animation = `moveAndFade var(--duration) ease-out forwards`;
             
             document.body.appendChild(smallHeart);
 
             // Uklanjanje srca nakon animacije
             setTimeout(() => {
                 smallHeart.remove();
-            }, 1000);
+            }, duration * 1000);
         }
     };
 
