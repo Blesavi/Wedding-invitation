@@ -3,13 +3,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const hasSubmitted = localStorage.getItem('formSubmitted');
     const form = document.getElementById('rsvp-form');
     
+    function hideAllFormElements() {
+        // Sakrivanje cele forme
+        const formElements = document.querySelectorAll('.form-group, .submit-btn, .rsvp-header, #guests-group, #guests-names-group');
+        formElements.forEach(element => {
+            if (element) {
+                element.style.display = 'none';
+            }
+        });
+    }
+    
     if (hasSubmitted) {
         if (form) {
-            // Sakrivanje forme i prikazivanje poruke
-            const formElements = form.querySelectorAll('.form-group, .submit-btn, .rsvp-header');
-            formElements.forEach(element => {
-                element.style.display = 'none';
-            });
+            // Sakrivanje svih elemenata forme
+            hideAllFormElements();
             
             const confirmationMessage = document.getElementById('confirmation-message');
             if (confirmationMessage) {
@@ -17,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 confirmationMessage.innerHTML = `
                     <i class="fas fa-exclamation-circle" style="font-size: 40px; margin-bottom: 20px; display: block; color: #e4dc9e;"></i>
                     <h3 style="color: #e4dc9e; margin-bottom: 15px;">Већ сте потврдили своје присуство!</h3>
-                    <p style="color: #e4dc9e; font-size: 18px;">Хвала вам на интересовању, али већ сте попунили форму за потврду доласка.</p>
                     <p style="color: #e4dc9e; font-size: 18px; margin-top: 10px;">Ако желите да промените свој одговор, молимо вас да контактирате младенце директно.</p>
+                    <p style="color: #e4dc9e; font-size: 18px; margin-top: 10px;">Контакт телефон: 061 39 140 96</p>
                 `;
                 confirmationMessage.classList.add('visible');
             }
@@ -56,20 +63,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // RSVP form handling
     const radioButtons = document.querySelectorAll('input[name="attendance"]');
-    const guestsGroup = document.getElementById('guests-group');
-    const guestsNamesGroup = document.getElementById('guests-names-group');
 
     // Handle radio button changes
     radioButtons.forEach(radio => {
         radio.addEventListener('change', function() {
             console.log("Radio changed to:", this.value);
-            if (this.value === 'not-coming') {
-                guestsGroup.style.display = 'none';
-                guestsNamesGroup.style.display = 'none';
+            if (this.value === 'not-coming' || hasSubmitted) {
+                hideGuestFields();
                 // Reset values
                 document.getElementById('guests').value = '0';
                 document.getElementById('guests-names').value = '';
-            } else {
+            } else if (!hasSubmitted) {
                 guestsGroup.style.display = 'block';
                 guestsNamesGroup.style.display = 'block';
             }
@@ -170,24 +174,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Čuvanje informacije da je forma popunjena
                 localStorage.setItem('formSubmitted', 'true');
-
-                // Reset button state
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
+                
+                // Sakrivanje svih elemenata forme
+                hideAllFormElements();
 
                 console.log('Server response:', response); // Log full response
 
                 // Since no-cors mode won't give us response details, we'll assume success if we get here
                 // Show confirmation message with animation
                 const confirmationMessage = document.getElementById('confirmation-message');
-                const formElements = form.querySelectorAll('.form-group, .submit-btn, .rsvp-header');
                 const comingMessage = document.getElementById('coming-message');
                 const notComingMessage = document.getElementById('not-coming-message');
-                
-                // Hide all form elements
-                formElements.forEach(element => {
-                    element.style.display = 'none';
-                });
                 
                 // Show appropriate message based on attendance choice
                 if (attendance.value === 'coming') {
@@ -200,12 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 // Show confirmation message
                 confirmationMessage.style.display = 'block';
-                // Trigger reflow
-                void confirmationMessage.offsetWidth;
                 confirmationMessage.classList.add('visible');
-                
-                // Reset form in background
-                form.reset();
                 
                 // Smooth scroll to confirmation message
                 confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
