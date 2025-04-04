@@ -88,10 +88,36 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        document.getElementById('confirmation-message').style.display = 'block';
-        document.getElementById('rsvp-form').reset();
+        const data = {
+            name,
+            attendance,
+            guests,
+            guestsNames,
+            message
+        };
 
-        document.getElementById('confirmation-message').scrollIntoView({ behavior: 'smooth' });
+        // Zamenite URL sa vašim Google Apps Script URL-om
+        const scriptURL = 'VAŠ_GOOGLE_APPS_SCRIPT_URL';
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.status === 'success') {
+                document.getElementById('confirmation-message').style.display = 'block';
+                document.getElementById('rsvp-form').reset();
+                document.getElementById('confirmation-message').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('Дошло је до грешке. Покушајте поново.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Дошло је до грешке. Покушајте поново.');
+        });
     });
 
     // Set initial state based on the checked radio
