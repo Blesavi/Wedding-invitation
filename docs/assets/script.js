@@ -143,29 +143,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Funkcija za kreiranje efekta sa srcima
     const createHeartEffect = (x, y) => {
-        const numHearts = 25; // Povećan broj srca sa 10 na 25
-        const minRadius = 30; // Smanjena minimalna razdaljina za bliža srca
-        const maxRadius = 200; // Povećana maksimalna razdaljina za dalja srca
-
+        const numHearts = 25;
+        const minRadius = 30;
+        const maxRadius = 200;
+        
+        // Ravnomerno raspoređujemo uglove, ali dodajemo malo nasumičnosti
+        const angleStep = (2 * Math.PI) / numHearts;
+        
         for (let i = 0; i < numHearts; i++) {
             const smallHeart = document.createElement('div');
             smallHeart.className = 'small-heart';
             smallHeart.style.left = `${x}px`;
             smallHeart.style.top = `${y}px`;
             
-            // Nasumični ugao i razdaljina za prirodniji efekat
-            const angle = Math.random() * 2 * Math.PI;
-            const radius = minRadius + Math.random() * (maxRadius - minRadius);
+            // Osnovni ugao za ravnomernu distribuciju
+            const baseAngle = i * angleStep;
+            // Dodajemo malu nasumičnu varijaciju ugla (±15 stepeni)
+            const randomAngleOffset = (Math.random() - 0.5) * Math.PI / 6;
+            const angle = baseAngle + randomAngleOffset;
+            
+            // Nasumična razdaljina, ali sa boljom distribucijom
+            const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
             
             // Različite brzine za različita srca
-            const duration = 0.6 + Math.random() * 0.8; // 0.6-1.4 sekunde
+            const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4 sekunde
             
-            // Nasumične krajnje koordinate sa više varijacija
-            const targetX = Math.cos(angle) * radius * (0.7 + Math.random() * 0.6);
-            const targetY = Math.sin(angle) * radius * (0.7 + Math.random() * 0.6);
+            // Računamo krajnje koordinate
+            const targetX = Math.cos(angle) * radius;
+            const targetY = Math.sin(angle) * radius;
             
-            // Nasumične veličine srca
-            const scale = 0.8 + Math.random() * 0.4; // 80-120% originalne veličine
+            // Nasumične veličine srca (ali u manjem opsegu)
+            const scale = 0.9 + Math.random() * 0.2; // 90-110% originalne veličine
             smallHeart.style.transform = `scale(${scale})`;
             
             smallHeart.style.setProperty('--tx', `${targetX}px`);
@@ -173,12 +181,10 @@ document.addEventListener("DOMContentLoaded", function () {
             smallHeart.style.setProperty('--duration', `${duration}s`);
             smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
             
-            // Dodavanje animacije
             smallHeart.style.animation = `moveAndFade var(--duration) ease-out forwards`;
             
             document.body.appendChild(smallHeart);
 
-            // Uklanjanje srca nakon animacije
             setTimeout(() => {
                 smallHeart.remove();
             }, duration * 1000);
