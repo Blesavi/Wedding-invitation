@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const radioButtons = document.querySelectorAll('input[name="attendance"]');
     const guestsGroup = document.getElementById('guests-group');
     const guestsNamesGroup = document.getElementById('guests-names-group');
-    const submitButton = document.getElementById('submit-rsvp');
 
     // Handle radio button changes
     radioButtons.forEach(radio => {
@@ -74,51 +73,119 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // RSVP Form Handling
-    submitButton.addEventListener('click', function (e) {
-        e.preventDefault();
+    const form = document.getElementById('rsvp-form');
+    const submitButton = document.getElementById('submit-rsvp');
+    
+    if (form) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-        const name = document.getElementById('name').value;
-        const attendance = document.querySelector('input[name="attendance"]:checked').value;
-        const guests = document.getElementById('guests').value;
-        const guestsNames = document.getElementById('guests-names').value;
-        const message = document.getElementById('message').value;
-
-        if (!name) {
-            alert('Молимо унесите ваше име и презиме.');
-            return;
-        }
-
-        const data = {
-            name,
-            attendance,
-            guests,
-            guestsNames,
-            message
-        };
-
-        // Zamenite URL sa vašim Google Apps Script URL-om
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzQlzKdE_x9tYLaLKOKCcx1D-0rH_U0qQCxD6HmYa91Hw7xi2zjZsdIW6p7y9GSksYf/exec';
-
-        fetch(scriptURL, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(response => {
-            if (response.status === 'success') {
-                document.getElementById('confirmation-message').style.display = 'block';
-                document.getElementById('rsvp-form').reset();
-                document.getElementById('confirmation-message').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Дошло је до грешке. Покушајте поново.');
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                alert('Молимо унесите ваше име и презиме.');
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Дошло је до грешке. Покушајте поново.');
+
+            const attendance = document.querySelector('input[name="attendance"]:checked');
+            if (!attendance) {
+                alert('Молимо изаберите да ли долазите.');
+                return;
+            }
+
+            const guests = parseInt(document.getElementById('guests').value) || 0;
+            const guestsNames = document.getElementById('guests-names').value.trim();
+
+            // Validate guest names if guests are coming
+            if (attendance.value === 'coming' && guests > 0) {
+                // Split names by comma and trim whitespace
+                const guestNamesList = guestsNames.split(',').map(name => name.trim()).filter(name => name.length > 0);
+                
+                if (guestNamesList.length === 0 && guests > 0) {
+                    alert('Молимо унесите имена и презимена гостију који долазе са вама.');
+                    return;
+                }
+                
+                if (guestNamesList.length !== guests) {
+                    alert(`Унели сте ${guests} гостију, али сте навели ${guestNamesList.length} имена. Молимо унесите тачан број имена гостију.`);
+                    return;
+                }
+            }
+
+            const message = document.getElementById('message').value;
+
+            const data = {
+                name,
+                attendance: attendance.value,
+                guests,
+                guestsNames,
+                message,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbzQlzKdE_x9tYLaLKOKCcx1D-0rH_U0qQCxD6HmYa91Hw7xi2zjZsdIW6p7y9GSksYf/exec';
+
+                // Show loading state
+                const submitButton = document.getElementById('submit-rsvp');
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Шаљем...';
+                submitButton.disabled = true;
+
+                // Using fetch with no-cors mode
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Changed to no-cors
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8', // Changed content type
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Reset button state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+
+                console.log('Server response:', response); // Log full response
+
+                // Since no-cors mode won't give us response details, we'll assume success if we get here
+                const confirmationMessage = document.getElementById('confirmation-message');
+                confirmationMessage.style.display = 'block';
+                form.reset();
+                confirmationMessage.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('Detailed error:', error); // Log detailed error
+                
+                // Reset button state
+                const submitButton = document.getElementById('submit-rsvp');
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+
+                // Show user-friendly error message
+                alert('Дошло је до грешке при слању форме. Молимо покушајте поново или нас контактирајте директно на телефон.\n\nДетаљи грешке: ' + error.message);
+            }
         });
-    });
+
+        // Add real-time validation for guest names
+        const guestsInput = document.getElementById('guests');
+        const guestsNamesInput = document.getElementById('guests-names');
+
+        guestsInput.addEventListener('change', function() {
+            const guests = parseInt(this.value) || 0;
+            if (guests > 0) {
+                guestsNamesInput.setAttribute('required', 'required');
+                // Use correct grammar form based on number of guests
+                const placeholderText = guests === 1 
+                    ? 'Унесите име и презиме госта, раздвојено зарезом'
+                    : `Унесите ${guests} имена и презимена, раздвојена зарезима`;
+                guestsNamesInput.setAttribute('placeholder', placeholderText);
+            } else {
+                guestsNamesInput.removeAttribute('required');
+                guestsNamesInput.setAttribute('placeholder', 'Унесите имена гостију, раздвојена зарезима');
+            }
+        });
+    }
 
     // Set initial state based on the checked radio
     let checkedRadio = document.querySelector('input[name="attendance"]:checked');
@@ -141,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
         audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
     }
 
-    // Funkcija za kreiranje efekta sa srcima
+    // Funkcija za kreiranje efekta sa srcима
     const createHeartEffect = (x, y) => {
         const numHearts = 25;
         const minRadius = 30;
@@ -162,18 +229,18 @@ document.addEventListener("DOMContentLoaded", function () {
             const randomAngleOffset = (Math.random() - 0.5) * Math.PI / 6;
             const angle = baseAngle + randomAngleOffset;
             
-            // Nasumična razdaljina, ali sa boljom distribucijom
+            // Nasumična razdaljina, али са бољом дистрибуцијом
             const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
             
-            // Različite brzine za različita srca
-            const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4 sekunde
+            // Различите брзине за различита срца
+            const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4 секунде
             
-            // Računamo krajnje koordinate
+            // Рачунамо крајње координате
             const targetX = Math.cos(angle) * radius;
             const targetY = Math.sin(angle) * radius;
             
-            // Nasumične veličine srca (ali u manjem opsegu)
-            const scale = 0.9 + Math.random() * 0.2; // 90-110% originalne veličine
+            // Насумичне величине срца (али у мањем опсегу)
+            const scale = 0.9 + Math.random() * 0.2; // 90-110% оригиналне величине
             smallHeart.style.transform = `scale(${scale})`;
             
             smallHeart.style.setProperty('--tx', `${targetX}px`);
@@ -191,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Postavljanje event listenera na srce
+    // Постављање евент листенера на срце
     const heartElement = document.querySelector('.heart');
     if (heartElement) {
         heartElement.style.cursor = 'pointer';
@@ -200,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
             
-            // Pokretanje/zaustavljanje muzike
+            // Покретање/заустављање музике
             const audio = document.querySelector('audio');
             if (audio) {
                 if (audio.paused) {
@@ -210,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             
-            // Kreiranje efekta sa srcima
+            // Креирање ефекта са срцима
             createHeartEffect(x, y);
         });
     }
