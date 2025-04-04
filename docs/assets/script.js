@@ -143,17 +143,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const message = document.getElementById('message').value;
 
             const data = {
-                redniBroj: "",  // Ovo će biti popunjeno na serveru
-                name: name,     // Ime i prezime ide u B kolonu
-                attendance: attendance.value === 'coming' ? 'Dolazi' : 'X ne X',
-                guests,
-                guestsNames,
-                message,
+                redniBroj: "",  // This will be filled in by the server
+                name: name,     // "Ime i Prezime"
+                attendance: attendance.value === 'coming' ? 'Da' : 'Ne',  // "Dolazi"
+                guests: guests, // "Broj gostiju"
+                guestsNames: guestsNames, // "Dodatni gosti"
+                message: message, // "Poruka"
                 timestamp: new Date().toISOString()
             };
 
             try {
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbz0RP7y4dmBEBJTYT6Zb4-_4aaeXgNSZJBueYE_Bq_RAy_7acc6P1lxiFFp3khr4dWM/exec';  // Ovde zamenite URL sa onim koji ste dobili nakon deploy-a
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbz8x_PKU4tIpkNYN_Fh-wvCBwzFmAZpC-UZ-436hW2HMSTia7nvbTa4DSd0hja5Jlbe/exec';
                 
                 // Show loading state
                 const submitButton = document.getElementById('submit-rsvp');
