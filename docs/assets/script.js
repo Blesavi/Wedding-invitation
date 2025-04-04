@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Zamenite URL sa vašim Google Apps Script URL-om
-        const scriptURL = 'VAŠ_GOOGLE_APPS_SCRIPT_URL';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzQlzKdE_x9tYLaLKOKCcx1D-0rH_U0qQCxD6HmYa91Hw7xi2zjZsdIW6p7y9GSksYf/exec';
 
         fetch(scriptURL, {
             method: 'POST',
@@ -134,9 +134,26 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.log("Nije izabran nijedan radio dugmić");
     }
-});
 
-const audio = document.querySelector('audio');
-if (audio) {
-    audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
-}
+    // Postavljanje jačine zvuka
+    const audio = document.querySelector('audio');
+    if (audio) {
+        audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
+    }
+
+    // Dodavanje funkcionalnosti za pokretanje i zaustavljanje muzike klikom na srce
+    const heartElement = document.querySelector('.heart');
+    if (heartElement) {
+        heartElement.style.cursor = 'pointer'; // Dodavanje kursora za klik
+        heartElement.addEventListener('click', function () {
+            const audio = document.querySelector('audio');
+            if (audio) {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+        });
+    }
+});
