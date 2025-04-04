@@ -114,8 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const message = document.getElementById('message').value;
 
             const data = {
-                name,
-                attendance: attendance.value,
+                redniBroj: "",  // Ovo će biti popunjeno na serveru
+                name: name,     // Ime i prezime ide u B kolonu
+                attendance: attendance.value === 'coming' ? 'Dolazi' : 'X ne X',
                 guests,
                 guestsNames,
                 message,
@@ -123,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             try {
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbzQlzKdE_x9tYLaLKOKCcx1D-0rH_U0qQCxD6HmYa91Hw7xi2zjZsdIW6p7y9GSksYf/exec';
-
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbz0RP7y4dmBEBJTYT6Zb4-_4aaeXgNSZJBueYE_Bq_RAy_7acc6P1lxiFFp3khr4dWM/exec';  // Ovde zamenite URL sa onim koji ste dobili nakon deploy-a
+                
                 // Show loading state
                 const submitButton = document.getElementById('submit-rsvp');
                 const originalText = submitButton.innerHTML;
@@ -152,11 +153,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Show confirmation message with animation
                 const confirmationMessage = document.getElementById('confirmation-message');
                 const formElements = form.querySelectorAll('.form-group, .submit-btn, .rsvp-header');
+                const comingMessage = document.getElementById('coming-message');
+                const notComingMessage = document.getElementById('not-coming-message');
                 
                 // Hide all form elements
                 formElements.forEach(element => {
                     element.style.display = 'none';
                 });
+                
+                // Show appropriate message based on attendance choice
+                if (attendance.value === 'coming') {
+                    comingMessage.style.display = 'block';
+                    notComingMessage.style.display = 'none';
+                } else {
+                    comingMessage.style.display = 'none';
+                    notComingMessage.style.display = 'block';
+                }
                 
                 // Show confirmation message
                 confirmationMessage.style.display = 'block';
@@ -221,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Postavljanje jačine zvuka
     const audio = document.querySelector('audio');
     if (audio) {
-        audio.volume = 0.2; // Postavlja jačinu zvuka na 20%
+        audio.volume = 0.2; // Postavlja jačinu zvuka на 20%
     }
 
     // Funkcija za kreiranje efekta sa srcima
@@ -245,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const randomAngleOffset = (Math.random() - 0.5) * Math.PI / 6;
             const angle = baseAngle + randomAngleOffset;
             
-            // Nasumična razdaljina, али са бољом дистрибуцијом
+            // Nasumična razdaljina, ali са бољом дистрибуцијом
             const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
             
             // Различите брзине за различита срца
