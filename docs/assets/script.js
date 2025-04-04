@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Define guestsGroup and guestsNamesGroup at the beginning
+    const guestsGroup = document.getElementById('guests-group');
+    const guestsNamesGroup = document.getElementById('guests-names-group');
+    
     // Provera da li je forma već popunjena
     const hasSubmitted = localStorage.getItem('formSubmitted');
     const form = document.getElementById('rsvp-form');
@@ -13,6 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     
+    function hideGuestFields() {
+        // Sakrivanje samo polja za goste
+        if (guestsGroup) guestsGroup.style.display = 'none';
+        if (guestsNamesGroup) guestsNamesGroup.style.display = 'none';
+    }
+
     if (hasSubmitted) {
         if (form) {
             // Sakrivanje svih elemenata forme
@@ -74,8 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById('guests').value = '0';
                 document.getElementById('guests-names').value = '';
             } else if (!hasSubmitted) {
-                guestsGroup.style.display = 'block';
-                guestsNamesGroup.style.display = 'block';
+                if (guestsGroup) guestsGroup.style.display = 'block';
+                if (guestsNamesGroup) guestsNamesGroup.style.display = 'block';
             }
         });
     });
@@ -240,11 +250,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (checkedRadio) {
         console.log("Inicijalno izabran radio:", checkedRadio.value);
         if (checkedRadio.value !== 'coming') {
-            guestsGroup.style.display = 'none';
-            guestsNamesGroup.style.display = 'none';
+            hideGuestFields();
         } else {
-            guestsGroup.style.display = 'block';
-            guestsNamesGroup.style.display = 'block';
+            if (guestsGroup) guestsGroup.style.display = 'block';
+            if (guestsNamesGroup) guestsNamesGroup.style.display = 'block';
         }
     } else {
         console.log("Nije izabran nijedan radio dugmić");
@@ -277,56 +286,69 @@ document.addEventListener("DOMContentLoaded", function () {
             const randomAngleOffset = (Math.random() - 0.5) * Math.PI / 6;
             const angle = baseAngle + randomAngleOffset;
             
-            // Nasumična razdaljina, ali са бољом дистрибуцијом
+            // Nasumična razdaljina sa boljom distribucijom
             const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
             
-            // Различите брзине за различита срца
-            const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4 секунде
+            // Različite brzine za različita srca
+            const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4 sekunde
             
-            // Рачунамо крајње координате
+            // Računamo krajnje koordinate
             const targetX = Math.cos(angle) * radius;
             const targetY = Math.sin(angle) * radius;
             
-            // Насумичне величине срца (али у мањем опсегу)
-            const scale = 0.9 + Math.random() * 0.2; // 90-110% оригиналне величине
-            smallHeart.style.transform = `scale(${scale})`;
+            // Nasumične veličine srca (ali u manjem opsegu)
+            const scale = 0.9 + Math.random() * 0.2; // 90-110% originalne veličine
             
+            // Postavljamo CSS varijable koje će animacija koristiti
             smallHeart.style.setProperty('--tx', `${targetX}px`);
             smallHeart.style.setProperty('--ty', `${targetY}px`);
             smallHeart.style.setProperty('--duration', `${duration}s`);
             smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
+            smallHeart.style.setProperty('--scale', scale);
             
+            // Postavljamo animaciju
             smallHeart.style.animation = `moveAndFade var(--duration) ease-out forwards`;
             
+            // Eksplicitno postavljamo srce umesto slike ako slika nije dostupna
+            smallHeart.innerHTML = '❤';
+            smallHeart.style.color = '#e25c5c';
+            
+            // Dodajemo srce u dokument
             document.body.appendChild(smallHeart);
 
+            // Uklanjamo element nakon što se animacija završi
             setTimeout(() => {
                 smallHeart.remove();
             }, duration * 1000);
         }
     };
 
-    // Постављање евент листенера на срце
+    // Replace the existing event listener with this new one
     const heartElement = document.querySelector('.heart');
     if (heartElement) {
         heartElement.style.cursor = 'pointer';
-        heartElement.addEventListener('click', function (event) {
+        heartElement.addEventListener('click', function(event) {
+            // Dobijamo poziciju srca za pokretanje animacije
             const rect = heartElement.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
             
-            // Покретање/заустављање музике
+            console.log('Srce kliknuto na poziciji:', x, y);
+            
+            // Pokretanje/zaustavljanje muzike
             const audio = document.querySelector('audio');
             if (audio) {
                 if (audio.paused) {
-                    audio.play();
+                    audio.play().catch(e => console.error('Greška pri pokretanju zvuka:', e));
                 } else {
                     audio.pause();
                 }
             }
             
-            // Креирање ефекта са срцима
+            // Kreiramo efekat sa srcima
             createHeartEffect(x, y);
         });
+    } else {
+        console.error('Element sa klasom .heart nije pronađen!');
     }
 });

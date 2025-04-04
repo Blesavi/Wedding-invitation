@@ -222,12 +222,20 @@ p {
 }
 
 .heart {
-  color: #e4dc9e;
-  margin: 0 5px;
-  animation: pulse 1.5s infinite;
-  text-shadow: 0 0 10px rgba(228, 220, 158, 0.8), 0 0 20px rgba(228, 220, 158, 0.6);
-  display: inline-block;
-  font-size: clamp(28px, 8vw, 40px);
+    color: #e4dc9e;
+    margin: 0 5px;
+    animation: pulse 1.5s infinite;
+    text-shadow: 0 0 10px rgba(228, 220, 158, 0.8), 0 0 20px rgba(228, 220, 158, 0.6);
+    display: inline-block;
+    font-size: clamp(28px, 8vw, 40px);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.heart:hover {
+    transform: scale(1.2);
 }
 
 /* Divider Styling */
@@ -685,49 +693,56 @@ input[type='radio']:checked::before {
     text-shadow: 0 0 10px rgba(228, 220, 158, 0.4);
 }
 
-/* Stilovi za srca koja se šire i blede */
+/* Replace the existing .small-heart styles with these new ones */
 .small-heart {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #e4dc9e;
-  transform: rotate(45deg);
-  pointer-events: none;
-  z-index: 1000;
-}
-
-.small-heart::before,
-.small-heart::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #e4dc9e;
-  border-radius: 50%;
-}
-
-.small-heart::before {
-  top: -4px;
-  left: 0;
-}
-
-.small-heart::after {
-  top: 0;
-  left: -4px;
-}
-
-@keyframes moveAndFade {
-  0% {
-    transform: rotate(45deg) translate(0, 0) rotate(0deg) scale(1);
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background-image: url('assets/small-heart.png'); /* Optional: add if you have the image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 9999;
+    pointer-events: none;
     opacity: 1;
-  }
-  100% {
-    transform: rotate(45deg) translate(var(--tx), var(--ty)) rotate(var(--rotation)) scale(var(--scale, 1));
-    opacity: 0;
-  }
+    transform-origin: center;
+    color: #e4dc9e;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Animations */
+/* Update the existing .small-heart::before styles */
+.small-heart::before {
+    content: '❤';
+    color: #e4dc9e;
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Update the existing @keyframes moveAndFade */
+@keyframes moveAndFade {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(var(--scale, 1));
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) rotate(var(--rotation)) scale(var(--scale, 1));
+        opacity: 0;
+    }
+}
+
+/* Stilovi za srca koja se šire i blede */
 @keyframes pulse {
   0% {
     transform: scale(1);
