@@ -1,4 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Provera da li je forma već popunjena
+    const hasSubmitted = localStorage.getItem('formSubmitted');
+    const form = document.getElementById('rsvp-form');
+    
+    if (hasSubmitted) {
+        if (form) {
+            // Sakrivanje forme i prikazivanje poruke
+            const formElements = form.querySelectorAll('.form-group, .submit-btn, .rsvp-header');
+            formElements.forEach(element => {
+                element.style.display = 'none';
+            });
+            
+            const confirmationMessage = document.getElementById('confirmation-message');
+            if (confirmationMessage) {
+                confirmationMessage.style.display = 'block';
+                confirmationMessage.innerHTML = `
+                    <i class="fas fa-exclamation-circle" style="font-size: 40px; margin-bottom: 20px; display: block; color: #e4dc9e;"></i>
+                    <h3 style="color: #e4dc9e; margin-bottom: 15px;">Већ сте потврдили своје присуство!</h3>
+                    <p style="color: #e4dc9e; font-size: 18px;">Хвала вам на интересовању, али већ сте попунили форму за потврду доласка.</p>
+                    <p style="color: #e4dc9e; font-size: 18px; margin-top: 10px;">Ако желите да промените свој одговор, молимо вас да контактирате младенце директно.</p>
+                `;
+                confirmationMessage.classList.add('visible');
+            }
+        }
+    }
+
     // Timer code
     const timerElement = document.getElementById("timer");
 
@@ -73,10 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // RSVP Form Handling
-    const form = document.getElementById('rsvp-form');
     const submitButton = document.getElementById('submit-rsvp');
     
-    if (form) {
+    if (form && !hasSubmitted) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -142,6 +167,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     body: JSON.stringify(data)
                 });
+
+                // Čuvanje informacije da je forma popunjena
+                localStorage.setItem('formSubmitted', 'true');
 
                 // Reset button state
                 submitButton.innerHTML = originalText;
