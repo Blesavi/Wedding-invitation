@@ -870,3 +870,33 @@ input[type='radio']:checked::before {
     aspect-ratio: 3/2; /* Slightly taller on medium screens */
   }
 }
+
+#initial-confirmation,
+#return-confirmation {
+    display: none;
+}
+
+#initial-confirmation.visible,
+#return-confirmation.visible {
+    display: block;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.confirmation-message {
+    padding: 30px;
+    background: linear-gradient(135deg, 
+        rgba(157, 46, 35, 0.97), 
+        rgba(109, 59, 36, 0.97)
+    );
+    color: #e4dc9e;
+    border-radius: 5px;
+    margin: 20px auto;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    border: 1px solid rgba(228, 220, 158, 0.3);
+    box-shadow: 0 5px 15px rgba(109, 59, 36, 0.2);
+    position: relative;
+    max-width: 500px;
+}

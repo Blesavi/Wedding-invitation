@@ -1,4 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('rsvp-form');
+    const initialConfirmation = document.getElementById('initial-confirmation');
+    const returnConfirmation = document.getElementById('return-confirmation');
+    const hasSubmitted = localStorage.getItem('formSubmitted') === 'true';
+
+    // Inicijalno sakrivanje/prikazivanje elemenata
+    if (hasSubmitted) {
+        if (form) form.style.display = 'none';
+        if (returnConfirmation) {
+            returnConfirmation.style.display = 'block';
+            returnConfirmation.classList.add('visible');
+        }
+        if (initialConfirmation) initialConfirmation.style.display = 'none';
+    } else {
+        if (form) form.style.display = 'block';
+        if (returnConfirmation) returnConfirmation.style.display = 'none';
+        if (initialConfirmation) initialConfirmation.style.display = 'none';
+    }
+
     // Timer code
     const timerElement = document.getElementById("timer");
 
@@ -75,6 +94,90 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             
             createHeartEffect(x, y);
+        });
+    }
+
+    // Form handling
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const guests = document.getElementById('guests').value;
+            const guestsNames = document.getElementById('guests-names').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            const data = {
+                name: name,
+                attendance: attendance === 'coming' ? 'Da' : 'Ne',
+                guests: guests,
+                guestsNames: guestsNames,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbz8x_PKU4tIpkNYN_Fh-wvCBwzFmAZpC-UZ-436hW2HMSTia7nvbTa4DSd0hja5Jlbe/exec';
+                
+                // Show loading state
+                const submitButton = document.getElementById('submit-rsvp');
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Шаљем...';
+                submitButton.disabled = true;
+
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Čuvamo informaciju o uspešnom slanju
+                localStorage.setItem('formSubmitted', 'true');
+                
+                // Sakrivamo formu
+                form.style.display = 'none';
+                
+                // Prikazujemo inicijalnu potvrdu
+                if (initialConfirmation) {
+                    initialConfirmation.style.display = 'block';
+                    initialConfirmation.classList.add('visible');
+                    // Scroll do poruke
+                    initialConfirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Дошло је до грешке при слању форме. Молимо покушајте поново.');
+                
+                // Reset button state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
+        });
+
+        // Guest fields handling
+        const radioButtons = document.querySelectorAll('input[name="attendance"]');
+        const guestsGroup = document.getElementById('guests-group');
+        const guestsNamesGroup = document.getElementById('guests-names-group');
+        
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'not-coming') {
+                    if (guestsGroup) guestsGroup.style.display = 'none';
+                    if (guestsNamesGroup) guestsNamesGroup.style.display = 'none';
+                    // Reset values
+                    document.getElementById('guests').value = '0';
+                    document.getElementById('guests-names').value = '';
+                } else {
+                    if (guestsGroup) guestsGroup.style.display = 'block';
+                    if (guestsNamesGroup) guestsNamesGroup.style.display = 'block';
+                }
+            });
         });
     }
 
