@@ -1,47 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Define guestsGroup and guestsNamesGroup at the beginning
-    const guestsGroup = document.getElementById('guests-group');
-    const guestsNamesGroup = document.getElementById('guests-names-group');
-    
-    // Provera da li je forma već popunjena
-    const hasSubmitted = localStorage.getItem('formSubmitted');
-    const form = document.getElementById('rsvp-form');
-    
-    function hideAllFormElements() {
-        // Sakrivanje cele forme
-        const formElements = document.querySelectorAll('.form-group, .submit-btn, .rsvp-header, #guests-group, #guests-names-group');
-        formElements.forEach(element => {
-            if (element) {
-                element.style.display = 'none';
-            }
-        });
-    }
-    
-    function hideGuestFields() {
-        // Sakrivanje samo polja za goste
-        if (guestsGroup) guestsGroup.style.display = 'none';
-        if (guestsNamesGroup) guestsNamesGroup.style.display = 'none';
-    }
-
-    if (hasSubmitted) {
-        if (form) {
-            // Sakrivanje svih elemenata forme
-            hideAllFormElements();
-            
-            const confirmationMessage = document.getElementById('confirmation-message');
-            if (confirmationMessage) {
-                confirmationMessage.style.display = 'block';
-                confirmationMessage.innerHTML = `
-                    <i class="fas fa-exclamation-circle" style="font-size: 40px; margin-bottom: 20px; display: block; color: #e4dc9e;"></i>
-                    <h3 style="color: #e4dc9e; margin-bottom: 15px;">Већ сте потврдили своје присуство!</h3>
-                    <p style="color: #e4dc9e; font-size: 18px; margin-top: 10px;">Ако желите да промените свој одговор, молимо вас да контактирате младенце директно.</p>
-                    <p style="color: #e4dc9e; font-size: 18px; margin-top: 10px;">Контакт телефон: 061 39 140 96</p>
-                `;
-                confirmationMessage.classList.add('visible');
-            }
-        }
-    }
-
     // Timer code
     const timerElement = document.getElementById("timer");
 
@@ -71,25 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // RSVP form handling
-    const radioButtons = document.querySelectorAll('input[name="attendance"]');
-
-    // Handle radio button changes
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', function() {
-            console.log("Radio changed to:", this.value);
-            if (this.value === 'not-coming' || hasSubmitted) {
-                hideGuestFields();
-                // Reset values
-                document.getElementById('guests').value = '0';
-                document.getElementById('guests-names').value = '';
-            } else if (!hasSubmitted) {
-                if (guestsGroup) guestsGroup.style.display = 'block';
-                if (guestsNamesGroup) guestsNamesGroup.style.display = 'block';
-            }
-        });
-    });
-
     // Floating flowers animation
     const floatingFlowers = document.getElementById('floatingFlowers');
     const flowerImages = [
@@ -112,231 +50,22 @@ document.addEventListener("DOMContentLoaded", function () {
         floatingFlowers.appendChild(flower);
     }
 
-    // RSVP Form Handling
-    const submitButton = document.getElementById('submit-rsvp');
-    
-    if (form && !hasSubmitted) {
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const name = document.getElementById('name').value.trim();
-            if (!name) {
-                alert('Молимо унесите ваше име и презиме.');
-                return;
-            }
-
-            const attendance = document.querySelector('input[name="attendance"]:checked');
-            if (!attendance) {
-                alert('Молимо изаберите да ли долазите.');
-                return;
-            }
-
-            const guests = parseInt(document.getElementById('guests').value) || 0;
-            const guestsNames = document.getElementById('guests-names').value.trim();
-
-            // Validate guest names if guests are coming
-            if (attendance.value === 'coming' && guests > 0) {
-                // Split names by comma and trim whitespace
-                const guestNamesList = guestsNames.split(',').map(name => name.trim()).filter(name => name.length > 0);
-                
-                if (guestNamesList.length === 0 && guests > 0) {
-                    alert('Молимо унесите имена и презимена гостију који долазе са вама.');
-                    return;
-                }
-                
-                if (guestNamesList.length !== guests) {
-                    alert(`Унели сте ${guests} гостију, али сте навели ${guestNamesList.length} имена. Молимо унесите тачан број имена гостију.`);
-                    return;
-                }
-            }
-
-            const message = document.getElementById('message').value;
-
-            const data = {
-                redniBroj: "",  // This will be filled in by the server
-                name: name,     // "Ime i Prezime"
-                attendance: attendance.value === 'coming' ? 'Da' : 'Ne',  // "Dolazi"
-                guests: guests, // "Broj gostiju"
-                guestsNames: guestsNames, // "Dodatni gosti"
-                message: message, // "Poruka"
-                timestamp: new Date().toISOString()
-            };
-
-            try {
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbz8x_PKU4tIpkNYN_Fh-wvCBwzFmAZpC-UZ-436hW2HMSTia7nvbTa4DSd0hja5Jlbe/exec';
-                
-                // Show loading state
-                const submitButton = document.getElementById('submit-rsvp');
-                const originalText = submitButton.innerHTML;
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Шаљем...';
-                submitButton.disabled = true;
-
-                // Using fetch with no-cors mode
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Changed to no-cors
-                    cache: 'no-cache',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8', // Changed content type
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                // Čuvanje informacije da je forma popunjena
-                localStorage.setItem('formSubmitted', 'true');
-                
-                // Sakrivanje svih elemenata forme
-                hideAllFormElements();
-
-                console.log('Server response:', response); // Log full response
-
-                // Since no-cors mode won't give us response details, we'll assume success if we get here
-                // Show confirmation message with animation
-                const confirmationMessage = document.getElementById('confirmation-message');
-                const comingMessage = document.getElementById('coming-message');
-                const notComingMessage = document.getElementById('not-coming-message');
-                
-                // Show appropriate message based on attendance choice
-                if (attendance.value === 'coming') {
-                    comingMessage.style.display = 'block';
-                    notComingMessage.style.display = 'none';
-                } else {
-                    comingMessage.style.display = 'none';
-                    notComingMessage.style.display = 'block';
-                }
-                
-                // Show confirmation message
-                confirmationMessage.style.display = 'block';
-                confirmationMessage.classList.add('visible');
-                
-                // Smooth scroll to confirmation message
-                confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-            } catch (error) {
-                console.error('Detailed error:', error); // Log detailed error
-                
-                // Reset button state
-                const submitButton = document.getElementById('submit-rsvp');
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-
-                // Show user-friendly error message
-                alert('Дошло је до грешке при слању форме. Молимо покушајте поново или нас контактирајте директно на телефон.\n\nДетаљи грешке: ' + error.message);
-            }
-        });
-
-        // Add real-time validation for guest names
-        const guestsInput = document.getElementById('guests');
-        const guestsNamesInput = document.getElementById('guests-names');
-
-        guestsInput.addEventListener('change', function() {
-            const guests = parseInt(this.value) || 0;
-            if (guests > 0) {
-                guestsNamesInput.setAttribute('required', 'required');
-                // Use correct grammar form based on number of guests
-                const placeholderText = guests === 1 
-                    ? 'Унесите име и презиме госта, раздвојено зарезом'
-                    : `Унесите ${guests} имена и презимена, раздвојена зарезима`;
-                guestsNamesInput.setAttribute('placeholder', placeholderText);
-            } else {
-                guestsNamesInput.removeAttribute('required');
-                guestsNamesInput.setAttribute('placeholder', 'Унесите имена гостију, раздвојена зарезима');
-            }
-        });
-    }
-
-    // Set initial state based on the checked radio
-    let checkedRadio = document.querySelector('input[name="attendance"]:checked');
-    if (checkedRadio) {
-        console.log("Inicijalno izabran radio:", checkedRadio.value);
-        if (checkedRadio.value !== 'coming') {
-            hideGuestFields();
-        } else {
-            if (guestsGroup) guestsGroup.style.display = 'block';
-            if (guestsNamesGroup) guestsNamesGroup.style.display = 'block';
-        }
-    } else {
-        console.log("Nije izabran nijedan radio dugmić");
-    }
-
-    // Postavljanje jačine zvuka
-    const audio = document.querySelector('audio');
-    if (audio) {
-        audio.volume = 0.2; // Postavlja jačinu zvuka на 20%
-    }
-
-    // Funkcija za kreiranje efekta sa srcima
-    const createHeartEffect = (x, y) => {
-        const numHearts = 25;
-        const minRadius = 30;
-        const maxRadius = 200;
-        
-        // Ravnomerno raspoređujemo uglove, ali dodajemo malo nasumičnosti
-        const angleStep = (2 * Math.PI) / numHearts;
-        
-        for (let i = 0; i < numHearts; i++) {
-            const smallHeart = document.createElement('div');
-            smallHeart.className = 'small-heart';
-            smallHeart.style.left = `${x}px`;
-            smallHeart.style.top = `${y}px`;
-            
-            // Osnovni ugao za ravnomernu distribuciju
-            const baseAngle = i * angleStep;
-            // Dodajemo malu nasumičnu varijaciju ugla (±15 stepeni)
-            const randomAngleOffset = (Math.random() - 0.5) * Math.PI / 6;
-            const angle = baseAngle + randomAngleOffset;
-            
-            // Nasumična razdaljina sa boljom distribucijom
-            const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
-            
-            // Različite brzine za različita srca
-            const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4 sekunde
-            
-            // Računamo krajnje koordinate
-            const targetX = Math.cos(angle) * radius;
-            const targetY = Math.sin(angle) * radius;
-            
-            // Nasumične veličine srca (ali u manjem opsegu)
-            const scale = 0.9 + Math.random() * 0.2; // 90-110% originalne veličine
-            
-            // Postavljamo CSS varijable koje će animacija koristiti
-            smallHeart.style.setProperty('--tx', `${targetX}px`);
-            smallHeart.style.setProperty('--ty', `${targetY}px`);
-            smallHeart.style.setProperty('--duration', `${duration}s`);
-            smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
-            smallHeart.style.setProperty('--scale', scale);
-            
-            // Postavljamo animaciju
-            smallHeart.style.animation = `moveAndFade var(--duration) ease-out forwards`;
-            
-            // Eksplicitno postavljamo srce umesto slike ako slika nije dostupna
-            smallHeart.innerHTML = '❤';
-            smallHeart.style.color = '#e25c5c';
-            
-            // Dodajemo srce u dokument
-            document.body.appendChild(smallHeart);
-
-            // Uklanjamo element nakon što se animacija završi
-            setTimeout(() => {
-                smallHeart.remove();
-            }, duration * 1000);
-        }
-    };
-
-    // Replace the existing event listener with this new one
+    // Heart effect and audio functionality
     const heartElement = document.querySelector('.heart');
+    const audio = document.querySelector('audio');
+    
+    if (audio) {
+        audio.volume = 0.2;
+    }
+
     if (heartElement) {
         heartElement.style.cursor = 'pointer';
+        
         heartElement.addEventListener('click', function(event) {
-            // Dobijamo poziciju srca za pokretanje animacije
-            const rect = heartElement.getBoundingClientRect();
+            const rect = this.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
             
-            console.log('Srce kliknuto na poziciji:', x, y);
-            
-            // Pokretanje/zaustavljanje muzike
-            const audio = document.querySelector('audio');
             if (audio) {
                 if (audio.paused) {
                     audio.play().catch(e => console.error('Greška pri pokretanju zvuka:', e));
@@ -345,10 +74,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             
-            // Kreiramo efekat sa srcima
             createHeartEffect(x, y);
         });
-    } else {
-        console.error('Element sa klasom .heart nije pronađen!');
+    }
+
+    // Function for creating heart effect
+    function createHeartEffect(x, y) {
+        const numHearts = 25;
+        const minRadius = 30;
+        const maxRadius = 200;
+        const angleStep = (2 * Math.PI) / numHearts;
+        
+        for (let i = 0; i < numHearts; i++) {
+            const smallHeart = document.createElement('div');
+            smallHeart.className = 'small-heart';
+            smallHeart.innerHTML = '❤';
+            smallHeart.style.left = `${x}px`;
+            smallHeart.style.top = `${y}px`;
+            
+            const angle = i * angleStep + (Math.random() - 0.5) * 0.5;
+            const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
+            const duration = 0.8 + Math.random() * 0.6;
+            
+            const targetX = Math.cos(angle) * radius;
+            const targetY = Math.sin(angle) * radius;
+            
+            smallHeart.style.setProperty('--tx', `${targetX}px`);
+            smallHeart.style.setProperty('--ty', `${targetY}px`);
+            smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
+            smallHeart.style.animation = `moveAndFade ${duration}s ease-out forwards`;
+            
+            document.body.appendChild(smallHeart);
+            
+            setTimeout(() => {
+                smallHeart.remove();
+            }, duration * 1000);
+        }
     }
 });

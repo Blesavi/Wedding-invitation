@@ -491,6 +491,7 @@ p {
   border: 1px solid #d9b08c;
   box-shadow: 0 5px 15px rgba(109, 59, 36, 0.1);
   box-sizing: border-box;
+  display: none;
 }
 
 .rsvp-form::before {
@@ -639,7 +640,7 @@ input[type='radio']:checked::before {
 }
 
 .confirmation-message {
-    display: none;
+    display: block;
     padding: 30px;
     background: linear-gradient(135deg, 
         rgba(157, 46, 35, 0.97), 
