@@ -1,4 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Music hint handling
+    const musicHint = document.getElementById('music-hint');
+    const hintShown = localStorage.getItem('musicHintShown');
+    
+    if (!hintShown) {
+        // Show the hint
+        if (musicHint) {
+            setTimeout(() => {
+                musicHint.style.display = 'flex';
+            }, 1000);
+
+            // Auto-hide after 2 seconds
+            setTimeout(() => {
+                musicHint.style.opacity = '0';
+                setTimeout(() => {
+                    musicHint.style.display = 'none';
+                }, 500);
+            }, 2000);
+        }
+        
+        // Mark hint as shown
+        localStorage.setItem('musicHintShown', 'true');
+    } else {
+        // Hide the hint if already shown
+        if (musicHint) {
+            musicHint.style.display = 'none';
+        }
+    }
+
     const form = document.getElementById('rsvp-form');
     const initialConfirmation = document.getElementById('initial-confirmation');
     const returnConfirmation = document.getElementById('return-confirmation');
@@ -77,6 +106,40 @@ document.addEventListener("DOMContentLoaded", function () {
         audio.volume = 0.2;
     }
 
+    // Function for creating heart effect with custom duration
+    function createHeartEffect(x, y, duration = 0.8) {
+        const numHearts = 25;
+        const minRadius = 30;
+        const maxRadius = 200;
+        const angleStep = (2 * Math.PI) / numHearts;
+        
+        for (let i = 0; i < numHearts; i++) {
+            const smallHeart = document.createElement('div');
+            smallHeart.className = 'small-heart';
+            smallHeart.innerHTML = '❤';
+            smallHeart.style.left = `${x}px`;
+            smallHeart.style.top = `${y}px`;
+            
+            const angle = i * angleStep + (Math.random() - 0.5) * 0.5;
+            const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
+            
+            const targetX = Math.cos(angle) * radius;
+            const targetY = Math.sin(angle) * radius;
+            
+            smallHeart.style.setProperty('--tx', `${targetX}px`);
+            smallHeart.style.setProperty('--ty', `${targetY}px`);
+            smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
+            smallHeart.style.animation = `moveAndFade ${duration}s ease-out forwards`;
+            
+            document.body.appendChild(smallHeart);
+            
+            setTimeout(() => {
+                smallHeart.remove();
+            }, duration * 1000);
+        }
+    }
+
+    // Heart effect and audio functionality
     if (heartElement) {
         heartElement.style.cursor = 'pointer';
         
@@ -93,7 +156,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             
-            createHeartEffect(x, y);
+            // First wave - 20% slower (0.8s -> 1.0s)
+            createHeartEffect(x, y, 1.0);
+            
+            // Second wave - slower
+            setTimeout(() => {
+                createHeartEffect(x, y, 1.2);
+            }, 2000);
+            
+            // Third wave - even slower
+            setTimeout(() => {
+                createHeartEffect(x, y, 1.6);
+            }, 4000);
         });
     }
 
@@ -179,39 +253,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
-    }
-
-    // Function for creating heart effect
-    function createHeartEffect(x, y) {
-        const numHearts = 25;
-        const minRadius = 30;
-        const maxRadius = 200;
-        const angleStep = (2 * Math.PI) / numHearts;
-        
-        for (let i = 0; i < numHearts; i++) {
-            const smallHeart = document.createElement('div');
-            smallHeart.className = 'small-heart';
-            smallHeart.innerHTML = '❤';
-            smallHeart.style.left = `${x}px`;
-            smallHeart.style.top = `${y}px`;
-            
-            const angle = i * angleStep + (Math.random() - 0.5) * 0.5;
-            const radius = minRadius + Math.pow(Math.random(), 0.7) * (maxRadius - minRadius);
-            const duration = 0.8 + Math.random() * 0.6;
-            
-            const targetX = Math.cos(angle) * radius;
-            const targetY = Math.sin(angle) * radius;
-            
-            smallHeart.style.setProperty('--tx', `${targetX}px`);
-            smallHeart.style.setProperty('--ty', `${targetY}px`);
-            smallHeart.style.setProperty('--rotation', `${Math.random() * 360}deg`);
-            smallHeart.style.animation = `moveAndFade ${duration}s ease-out forwards`;
-            
-            document.body.appendChild(smallHeart);
-            
-            setTimeout(() => {
-                smallHeart.remove();
-            }, duration * 1000);
-        }
     }
 });

@@ -227,7 +227,7 @@ p {
     animation: pulse 1.5s infinite;
     text-shadow: 0 0 10px rgba(228, 220, 158, 0.8), 0 0 20px rgba(228, 220, 158, 0.6);
     display: inline-block;
-    font-size: clamp(28px, 8vw, 40px);
+    font-size: clamp(20px, 6vw, 32px); /* Smanjene vrednosti */
     cursor: pointer;
     transition: transform 0.3s ease;
     position: relative;
@@ -801,6 +801,15 @@ input[type='radio']:checked::before {
   }
 }
 
+@keyframes floatMusic {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
 /* Media Queries */
 @media (max-width: 480px) {
   .hero-section {
@@ -899,4 +908,42 @@ input[type='radio']:checked::before {
     box-shadow: 0 5px 15px rgba(109, 59, 36, 0.2);
     position: relative;
     max-width: 500px;
+}
+
+.music-hint {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(157, 46, 35, 0.95);
+    color: #e4dc9e;
+    padding: 6px 12px;
+    border-radius: 4px;
+    z-index: 1000;
+    white-space: nowrap;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e4dc9e;
+}
+
+@media (max-width: 480px) {
+    .music-hint {
+        top: 8px;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
 }
