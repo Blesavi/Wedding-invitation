@@ -693,6 +693,37 @@ input[type='radio']:checked::before {
     display: block;
     text-shadow: 0 0 10px rgba(228, 220, 158, 0.4);
 }
+.corner-flower {
+  position: absolute;
+  width: 80px; /* Increased width to double the size */
+  height: auto;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.corner-flower.top-left {
+  top: -10px; /* Adjusted position for larger size */
+  left: -10px;
+  transform: rotate(-0deg);
+}
+
+.corner-flower.top-right {
+  top: -10px; /* Adjusted position for larger size */
+  right: -10px;
+  transform: rotate(0deg);
+}
+
+.corner-flower.bottom-left {
+  bottom: -15px; /* Adjusted position for larger size */
+  left: -15px;
+  transform: rotate(-0deg);
+}
+
+.corner-flower.bottom-right {
+  bottom: -15px; /* Adjusted position for larger size */
+  right: -15px;
+  transform: rotate(0deg);
+}
 
 /* Replace the existing .small-heart styles with these new ones */
 .small-heart {
