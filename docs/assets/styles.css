@@ -872,12 +872,138 @@ input[type='radio']:checked::before {
     align-items: center;
     gap: 0px;
   }
+
+    body {
+        padding: 10px;
+    }
+
+    .page-container {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .container {
+        padding: 10px;
+        margin: 0;
+        width: 100%;
+        border-radius: 3px;
+    }
+
+    .title-with-icon {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title-with-icon h3 {
+        margin: 5px 0;
+        font-size: clamp(16px, 5vw, 20px);
+    }
+
+    .time-highlight {
+        font-size: clamp(24px, 7vw, 36px);
+    }
+
+    .ceremony-text,
+    .reception-text {
+        padding: 15px;
+        font-size: 14px;
+        margin: 15px 0;
+    }
+
+    .image-container {
+        margin: 15px auto;
+    }
+
+    .location-overlay {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .location-icon {
+        font-size: 16px;
+    }
+
+    .calendar-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        width: auto;
+        margin: 8px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-size: 16px;
+    }
+
+    .form-control {
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    .radio-group {
+        margin-bottom: 10px;
+    }
+
+    .radio-label {
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        padding: 10px 30px;
+        font-size: 16px;
+    }
+
+    .divider {
+        margin: 20px auto;
+    }
+
+    .divider-flower {
+        width: 30px;
+    }
+
+    #rsvp-deadline {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .reminder-btn {
+        margin: 5px 0;
+    }
+
+    .photo-sharing-text {
+        font-size: 14px;
+    }
+
+    .qr-code img {
+        width: 120px;
+    }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .hero-section {
     aspect-ratio: 3/2; /* Slightly taller on medium screens */
   }
+
+    .container {
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+    .title-with-icon {
+        gap: 8px;
+    }
+
+    .calendar-btn {
+        padding: 7px 14px;
+        font-size: 13px;
+    }
 }
 
 #initial-confirmation,
@@ -1028,6 +1154,45 @@ input[type='radio']:checked::before {
 
 .calendar-btn i {
     font-size: 16px;
+}
+
+.calendar-btn:active {
+    transform: scale(0.95);
+    background-color: #9d2e23;
+    color: #f8f1e5;
+}
+
+.reminder-btn {
+    margin: 10px auto 0;
+    font-size: 12px;
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+@media (max-width: 480px) {
+    .calendar-btn {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .calendar-btn:active {
+        background-color: #9d2e23;
+        color: #f8f1e5;
+    }
+}
+
+#rsvp-deadline br {
+    display: block;
+    margin: 5px 0;
+}
+
+@media (max-width: 480px) {
+    .reminder-btn {
+        margin: 8px auto 0;
+    }
+    
+    #rsvp-deadline br {
+        margin: 3px 0;
+    }
 }
 
 .reminder-btn {

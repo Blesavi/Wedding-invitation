@@ -270,28 +270,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createCalendarEvent(title, description, startDate, endDate) {
-        const event = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
-            'BEGIN:VEVENT',
-            'CLASS:PUBLIC',
-            `DESCRIPTION:${description}`,
-            `DTSTART:${startDate}`,
-            `DTEND:${endDate}`,
-            `LOCATION:Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш`,
-            `SUMMARY:${title}`,
-            'TRANSP:TRANSPARENT',
-            'END:VEVENT',
-            'END:VCALENDAR'
-        ].join('\n');
-    
-        const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.setAttribute('download', `${title}.ics`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // Check if it's iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        // Check if it's Android
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        if (isIOS || isAndroid) {
+            // Mobile format
+            const mobileCalendarUrl = `http://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(description)}&dates=${startDate}/${endDate}&location=${encodeURIComponent('Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш')}`;
+            
+            window.open(mobileCalendarUrl, '_blank');
+        } else {
+            // Desktop format
+            const event = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'BEGIN:VEVENT',
+                'CLASS:PUBLIC',
+                `DESCRIPTION:${description}`,
+                `DTSTART:${startDate}`,
+                `DTEND:${endDate}`,
+                `LOCATION:Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш`,
+                `SUMMARY:${title}`,
+                'TRANSP:TRANSPARENT',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\n');
+
+            const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', `${title}.ics`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     }
     
     function addWeddingToCalendar() {
