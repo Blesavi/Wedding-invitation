@@ -174,6 +174,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Frame image click handler
+    const frameImage = document.getElementById('frameImage');
+    if (frameImage) {
+        frameImage.addEventListener('click', function() {
+            this.classList.toggle('expanded');
+        });
+    }
+
     // Form handling
     if (form) {
         form.addEventListener('submit', async function(e) {
