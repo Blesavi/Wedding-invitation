@@ -268,4 +268,51 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+
+    function createCalendarEvent(title, description, startDate, endDate) {
+        const event = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'BEGIN:VEVENT',
+            'CLASS:PUBLIC',
+            `DESCRIPTION:${description}`,
+            `DTSTART:${startDate}`,
+            `DTEND:${endDate}`,
+            `LOCATION:Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш`,
+            `SUMMARY:${title}`,
+            'TRANSP:TRANSPARENT',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\n');
+    
+        const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', `${title}.ics`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+    
+    function addWeddingToCalendar() {
+        const startDate = '20250712T190000';
+        const endDate = '20250713T020000'; // Changed to 02:00 next day
+        createCalendarEvent(
+            'Венчање - Срђан и Анђела',
+            'Венчање у цркви Светог Пантелејмона (17:00) и прослава у ресторану Мадера (19:00)',
+            startDate,
+            endDate
+        );
+    }
+    
+    function addRsvpReminderToCalendar() {
+        const startDate = '20250608T120000';
+        const endDate = '20250608T130000';
+        createCalendarEvent(
+            'Потврда доласка - Венчање Срђан и Анђела',
+            'Крајњи рок за потврду доласка на венчање Срђана и Анђеле',
+            startDate,
+            endDate
+        );
+    }
 });

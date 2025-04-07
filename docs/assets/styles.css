@@ -1004,3 +1004,34 @@ input[type='radio']:checked::before {
 .qr-code img:hover {
     transform: scale(1.05);
 }
+
+.calendar-btn {
+    background-color: #f8f1e5;
+    color: #9d2e23;
+    border: 1px solid #9d2e23;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 10px auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.calendar-btn:hover {
+    background-color: #9d2e23;
+    color: #f8f1e5;
+    transform: translateY(-2px);
+}
+
+.calendar-btn i {
+    font-size: 16px;
+}
+
+.reminder-btn {
+    margin-left: 10px;
+    font-size: 12px;
+    padding: 6px 12px;
+}

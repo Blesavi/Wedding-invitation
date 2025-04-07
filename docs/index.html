@@ -105,6 +105,9 @@
                         </a>
                     </div>
                     <p>Булевар Др Ђинђића 18а, Ниш</p>
+                    <button class="calendar-btn" onclick="addWeddingToCalendar()">
+                        <i class="fas fa-calendar-plus"></i> Додај у календар
+                    </button>
                     <div class="divider">
                         <div class="divider-line"></div>
                         <!-- Koristite boho cvet kao u ostatku stranice -->
@@ -201,7 +204,11 @@
                 </div>
             </div>
             
-            <p id="rsvp-deadline" style="text-align: center; color: #9d2e23;">Молимо Вас да потврдите Ваше присуство попуњавањем обрасца до <strong style="font-size: 25px;">8. јуна</strong></p>
+            <p id="rsvp-deadline" style="text-align: center; color: #9d2e23;">Молимо Вас да потврдите Ваше присуство попуњавањем обрасца до <strong style="font-size: 25px;">8. јуна</strong>
+                <button class="calendar-btn reminder-btn" onclick="addRsvpReminderToCalendar()">
+                    <i class="fas fa-bell"></i> Додај подсетник
+                </button>
+            </p>
 
             <div class="divider">
                 <div class="divider-line"></div>
@@ -211,7 +218,7 @@
 
             <div class="photo-sharing-section">
                 <div class="text-with-background">
-                    <p class="photo-sharing-text">Било би нам изузетно драго да поделите са нама све лепе тренутке које забележите на нашем венчању. Молимо Вас да скенирате или кликнете на QR код како бисте једноставно додали ваше фотографије.</p>
+                    <p class="photo-sharing-text">Било би нам изузетно драго да поделите са нама све лепе тренутке које забележите на нашем венчању. Молимо вас да скенирате или кликнете на QR код како бисте једноставно додали ваше фотографије.</p>
                 </div>
                 <div class="qr-code">
                     <a href="https://drive.google.com/drive/folders/1bJS_3H2kh7kY5twduU1g8F4BzcFFAAXw?usp=drive_link" target="_blank">
