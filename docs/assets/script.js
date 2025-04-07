@@ -270,46 +270,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createCalendarEvent(title, description, startDate, endDate) {
-        // Check if it's iOS
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        // Check if it's Android
-        const isAndroid = /Android/.test(navigator.userAgent);
+        // Format dates for Google Calendar URL
+        startDate = startDate.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1$2$3T$4$5$6Z');
+        endDate = endDate.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1$2$3T$4$5$6Z');
 
-        if (isIOS || isAndroid) {
-            // Mobile format
-            const mobileCalendarUrl = `http://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(description)}&dates=${startDate}/${endDate}&location=${encodeURIComponent('Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш')}`;
-            
-            window.open(mobileCalendarUrl, '_blank');
-        } else {
-            // Desktop format
-            const event = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'BEGIN:VEVENT',
-                'CLASS:PUBLIC',
-                `DESCRIPTION:${description}`,
-                `DTSTART:${startDate}`,
-                `DTEND:${endDate}`,
-                `LOCATION:Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш`,
-                `SUMMARY:${title}`,
-                'TRANSP:TRANSPARENT',
-                'END:VEVENT',
-                'END:VCALENDAR'
-            ].join('\n');
+        // Create Google Calendar URL
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(description)}&dates=${startDate}/${endDate}&location=${encodeURIComponent('Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш')}`;
 
-            const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.setAttribute('download', `${title}.ics`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        // Create and click a temporary link
+        const link = document.createElement('a');
+        link.href = googleCalendarUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
-    
+
     function addWeddingToCalendar() {
         const startDate = '20250712T190000';
-        const endDate = '20250713T020000'; // Changed to 02:00 next day
+        const endDate = '20250713T020000';
         createCalendarEvent(
             'Венчање - Срђан и Анђела',
             'Венчање у цркви Светог Пантелејмона (17:00) и прослава у ресторану Мадера (19:00)',
@@ -317,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
             endDate
         );
     }
-    
+
     function addRsvpReminderToCalendar() {
         const startDate = '20250608T120000';
         const endDate = '20250608T130000';
@@ -328,4 +308,17 @@ document.addEventListener("DOMContentLoaded", function () {
             endDate
         );
     }
+
+    // Add touch event handlers for calendar buttons
+    const calendarButtons = document.querySelectorAll('.calendar-btn');
+    calendarButtons.forEach(button => {
+        button.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Prevent double-firing on mobile
+            if (this.classList.contains('reminder-btn')) {
+                addRsvpReminderToCalendar();
+            } else {
+                addWeddingToCalendar();
+            }
+        }, { passive: false });
+    });
 });
