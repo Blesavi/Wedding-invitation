@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('rsvp-form');
     const initialConfirmation = document.getElementById('initial-confirmation');
     const returnConfirmation = document.getElementById('return-confirmation');
+    const rsvpDeadline = document.getElementById('rsvp-deadline');
     const hasSubmitted = localStorage.getItem('formSubmitted') === 'true';
 
     // Inicijalno sakrivanje/prikazivanje elemenata
@@ -41,10 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
             returnConfirmation.classList.add('visible');
         }
         if (initialConfirmation) initialConfirmation.style.display = 'none';
+        if (rsvpDeadline) rsvpDeadline.style.display = 'none'; // Hide deadline text when already submitted
     } else {
         if (form) form.style.display = 'block';
         if (returnConfirmation) returnConfirmation.style.display = 'none';
         if (initialConfirmation) initialConfirmation.style.display = 'none';
+        if (rsvpDeadline) rsvpDeadline.style.display = 'block';
     }
 
     // Timer code
@@ -223,6 +226,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Scroll do poruke
                     initialConfirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+                
+                // Hide the RSVP deadline text
+                document.getElementById('rsvp-deadline').style.display = 'none';
                 
             } catch (error) {
                 console.error('Error:', error);
