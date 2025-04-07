@@ -270,12 +270,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createCalendarEvent(title, description, startDate, endDate) {
+        console.log('Creating calendar event:', { title, description, startDate, endDate });
+
         // Format dates for Google Calendar URL
         startDate = startDate.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1$2$3T$4$5$6Z');
         endDate = endDate.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1$2$3T$4$5$6Z');
 
         // Create Google Calendar URL
         const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(description)}&dates=${startDate}/${endDate}&location=${encodeURIComponent('Црква Светог Пантелејмона, Улица Краља Милутина 12, Ниш')}`;
+
+        console.log('Generated Google Calendar URL:', googleCalendarUrl);
 
         // Create and click a temporary link
         const link = document.createElement('a');
@@ -288,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addWeddingToCalendar() {
+        console.log('addWeddingToCalendar clicked');
         const startDate = '20250712T190000';
         const endDate = '20250713T020000';
         createCalendarEvent(
@@ -299,6 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addRsvpReminderToCalendar() {
+        console.log('addRsvpReminderToCalendar clicked');
         const startDate = '20250608T120000';
         const endDate = '20250608T130000';
         createCalendarEvent(
