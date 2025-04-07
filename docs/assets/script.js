@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 musicHint.style.display = 'flex';
             }, 1000);
 
-            // Auto-hide after 2 seconds
+            // Auto-hide after 3 seconds (changed from 2)
             setTimeout(() => {
                 musicHint.style.opacity = '0';
                 setTimeout(() => {
                     musicHint.style.display = 'none';
                 }, 500);
-            }, 2000);
+            }, 3000); // Changed from 2000 to 3000
         }
         
         // Mark hint as shown
