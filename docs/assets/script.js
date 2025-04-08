@@ -318,8 +318,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add touch event handlers for calendar buttons
     const calendarButtons = document.querySelectorAll('.calendar-btn');
     calendarButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Sprečava podrazumevano ponašanje
+            if (this.classList.contains('reminder-btn')) {
+                addRsvpReminderToCalendar();
+            } else {
+                addWeddingToCalendar();
+            }
+        });
+
         button.addEventListener('touchstart', function(e) {
-            e.preventDefault(); // Prevent double-firing on mobile
+            e.preventDefault(); // Sprečava dvostruko pokretanje na mobilnim uređajima
             if (this.classList.contains('reminder-btn')) {
                 addRsvpReminderToCalendar();
             } else {
