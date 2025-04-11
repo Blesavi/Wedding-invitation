@@ -1517,3 +1517,10 @@ input[type='radio']:checked::before {
     }
   }
 }
+
+/* Favicon color preservation - helps mobile browsers */
+@media (prefers-color-scheme: light), (prefers-color-scheme: dark) {
+  link[rel="icon"], link[rel="shortcut icon"] {
+    color: #9d2e23;
+  }
+}
