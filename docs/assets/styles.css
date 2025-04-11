@@ -1289,3 +1289,51 @@ input[type='radio']:checked::before {
     left: -2px;
   }
 }
+
+.church-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.church-title-row .title-icon {
+  margin-right: 15px; /* Increased from 5px to create more space between icon and title */
+  position: relative;
+  left: -3px; /* Move left slightly */
+}
+
+.church-venue .title-with-icon {
+  flex-direction: column; /* Ensure vertical arrangement for the two rows */
+}
+
+.church-venue h3 {
+  margin-bottom: 5px;
+}
+
+.church-venue .time-highlight {
+  margin-top: 5px;
+}
+
+@media (max-width: 480px) {
+  .church-title-row {
+    justify-content: center;
+    flex-wrap: nowrap; /* Prevent wrapping on small devices */
+  }
+  
+  .church-title-row .title-icon {
+    margin-right: 12px; /* Increased spacing on mobile */
+    left: -2px;
+  }
+  
+  /* Specific adjustments for Samsung S8+ and similar sized devices */
+  @media (max-width: 360px) {
+    .church-title-row h3 {
+      font-size: clamp(14px, 4vw, 18px);
+    }
+    
+    .title-icon {
+      width: 24px;
+      height: auto;
+    }
+  }
+}
