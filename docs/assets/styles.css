@@ -1337,3 +1337,183 @@ input[type='radio']:checked::before {
     }
   }
 }
+
+.church-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  flex-wrap: nowrap; /* Prevent wrapping on all devices */
+}
+
+.church-title-row .title-icon {
+  margin-right: 15px;
+  position: relative;
+  left: -3px;
+  width: 40px;
+  height: auto;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.church-venue .title-with-icon {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+}
+
+.church-venue h3 {
+  margin-bottom: 5px;
+  font-size: clamp(16px, 5vw, 22px);
+  text-align: center;
+  line-height: 1.2;
+  flex-shrink: 1; /* Allow text to shrink if needed */
+  width: auto; /* Let text determine width */
+  word-break: break-word; /* Allow breaking for very long words */
+}
+
+.church-venue .time-highlight {
+  margin-top: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .church-title-row h3 {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+  
+  .church-title-row .title-icon {
+    width: 36px;
+  }
+}
+
+/* High-resolution phones like S20 Ultra */
+@media (min-width: 360px) and (max-width: 480px) and (min-height: 800px) {
+  .church-title-row {
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .church-title-row h3 {
+    font-size: 18px; /* Fixed size for better consistency */
+    letter-spacing: -0.2px; /* Tighten letter spacing slightly */
+  }
+  
+  .church-title-row .title-icon {
+    width: 32px;
+    margin-right: 10px;
+  }
+
+  .church-venue .time-highlight {
+    font-size: 36px;
+    margin-top: 5px;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 359px) {
+  .church-title-row h3 {
+    font-size: 16px;
+  }
+  
+  .church-title-row .title-icon {
+    width: 28px;
+    margin-right: 8px;
+  }
+
+  .church-venue .time-highlight {
+    font-size: 30px;
+  }
+}
+
+/* Mobile device standardization for venue title sections */
+@media (max-width: 480px) {
+  /* Common styles for both church and hotel venue title sections on mobile */
+  .church-title-row, .hotel-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 5px;
+    flex-wrap: nowrap;
+  }
+  
+  .church-title-row h3, .hotel-title-row h3 {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .church-title-row .title-icon {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  
+  .hotel-icon {
+    font-size: 20px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    position: relative;
+    left: -2px;
+    top: 1px;
+  }
+  
+  .church-venue .title-with-icon, .reception-venue .title-with-icon {
+    flex-direction: column;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .church-venue .time-highlight, .reception-venue .time-highlight {
+    font-size: 36px;
+    margin-top: 5px;
+    margin-left: 0;
+  }
+  
+  /* Specific styles for Samsung S8+ and similar devices */
+  @media (min-width: 360px) and (max-width: 370px), (min-height: 740px) and (max-height: 760px) {
+    .church-title-row h3, .hotel-title-row h3 {
+      font-size: 15px;
+    }
+    
+    .church-title-row .title-icon {
+      width: 28px;
+      margin-right: 8px;
+    }
+    
+    .hotel-icon {
+      font-size: 18px;
+      margin-right: 8px;
+    }
+    
+    .church-venue .time-highlight, .reception-venue .time-highlight {
+      font-size: 34px;
+    }
+  }
+  
+  /* Extra small devices */
+  @media (max-width: 359px) {
+    .church-title-row h3, .hotel-title-row h3 {
+      font-size: 14px;
+    }
+    
+    .church-title-row .title-icon {
+      width: 26px;
+      margin-right: 8px;
+    }
+    
+    .hotel-icon {
+      font-size: 17px;
+      margin-right: 8px;
+    }
+    
+    .church-venue .time-highlight, .reception-venue .time-highlight {
+      font-size: 32px;
+    }
+  }
+}
