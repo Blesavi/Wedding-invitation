@@ -348,12 +348,28 @@ p {
   text-align: center;
   margin: 10px 0;
   padding: 0 10px;
+  flex-wrap: wrap; /* Added to allow wrapping for hotel title and time */
+}
+
+.reception-venue .title-with-icon {
+  flex-direction: column; /* Make the hotel title and time stack vertically */
 }
 
 .title-icon {
   width: 40px;
   height: auto;
   margin-right: 5px;
+}
+
+/* Added specific styles for hotel icon */
+.hotel-icon {
+  font-size: 24px;
+  color: #9d2e23;
+  margin-right: 15px; /* Increased from 8px to create more space between icon and title */
+  margin-bottom: 3px; /* Added to move icon slightly down */
+  position: relative;
+  top: 2px; /* Move down slightly */
+  left: -3px; /* Move left slightly */
 }
 
 .time-highlight {
@@ -364,6 +380,15 @@ p {
   margin: 0;
   line-height: 1;
   padding: 0;
+}
+
+/* Added styles for hotel title to ensure proper spacing */
+.reception-venue h3 {
+  margin-bottom: 15px;
+}
+
+.reception-venue .time-highlight {
+  margin-top: 5px;
 }
 
 /* Image Containers */
@@ -891,8 +916,16 @@ input[type='radio']:checked::before {
     }
 
     .title-with-icon {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .title-with-icon .title-icon {
+        width: 30px;
+        margin-right: 0;
     }
 
     .title-with-icon h3 {
@@ -900,8 +933,26 @@ input[type='radio']:checked::before {
         font-size: clamp(16px, 5vw, 20px);
     }
 
+    .reception-venue .title-with-icon {
+        flex-direction: column; /* Keep vertical layout on mobile */
+    }
+
+    .hotel-icon {
+        font-size: 20px;
+        margin-right: 12px; /* Increased from 5px */
+        margin-bottom: 2px;
+        top: 2px;
+        left: -2px;
+    }
+
     .time-highlight {
         font-size: clamp(24px, 7vw, 36px);
+        margin-left: 10px;
+    }
+
+    .reception-venue .time-highlight {
+        margin-left: 0; /* Remove left margin for hotel time on mobile */
+        margin-top: 2px;
     }
 
     .ceremony-text,
@@ -1199,4 +1250,42 @@ input[type='radio']:checked::before {
     margin-left: 10px;
     font-size: 12px;
     padding: 6px 12px;
+}
+
+.hotel-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotel-icon {
+  font-size: 24px;
+  color: #9d2e23;
+  margin-right: 15px; /* Increased from 8px to create more space between icon and title */
+  margin-bottom: 3px; /* Added to move icon slightly down */
+  position: relative;
+  top: 2px; /* Move down slightly */
+  left: -3px; /* Move left slightly */
+}
+
+.reception-venue .title-with-icon {
+  flex-direction: column; /* Keep vertical arrangement for the two rows */
+}
+
+.reception-venue h3 {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 480px) {
+  .hotel-title-row {
+    justify-content: center;
+  }
+  
+  .hotel-icon {
+    font-size: 20px;
+    margin-right: 12px; /* Increased from 5px */
+    margin-bottom: 2px;
+    top: 2px;
+    left: -2px;
+  }
 }
