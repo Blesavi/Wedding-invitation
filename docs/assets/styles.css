@@ -1904,6 +1904,36 @@ input[type='radio']:checked::before {
   }
 }
 
+/* Responsive styles za taksi karticu na mobilnim uređajima */
+@media (max-width: 480px) {
+  .info-item {
+    font-size: 12px;
+    margin-bottom: 10px;
+    white-space: nowrap; /* Sprečava prelom teksta u novi red */
+    overflow: hidden;    /* Sakriva prekoračenje ako ga ima */
+  }
+  
+  .info-text strong {
+    font-weight: 600;
+    display: inline;    /* Promenjeno sa inline-block da omogući bolji protok teksta */
+    margin-right: 2px;  /* Smanjeno sa 5px na 2px */
+  }
+  
+  .info-text {
+    text-overflow: ellipsis; /* Dodaje tri tačke ako tekst ne stane */
+    font-size: 11px;         /* Smanjuje font da bi više stalo u red */
+  }
+
+  .taxi-info-card .card-content {
+    padding: 12px 8px; /* Smanjeni padding sa strane */
+  }
+  
+  .taxi-info-card .info-item i {
+    margin-right: 6px; /* Smanjeno sa 10px */
+    font-size: 14px;   /* Smanjeno sa 18px */
+  }
+}
+
 @media (max-width: 480px) {
   .info-icon {
     bottom: 10px;
@@ -1942,5 +1972,107 @@ input[type='radio']:checked::before {
   
   .card-content {
     padding: 12px;
+  }
+}
+
+/* Reminder info icon i kartica */
+.reminder-info-container {
+  position: relative;
+  z-index: 10;
+}
+
+.reminder-info-container .info-icon {
+  position: absolute;
+  bottom: 20px; /* Pozicionirano na dnu video klipa */
+  left: 20px; /* Pozicionirano u donjem levom uglu */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #2e6d9d; /* Plava boja za razliku od taksi ikone */
+  color: #f8f1e5;
+  border: 1px solid #8cbad9;
+  z-index: 20; /* Povećan z-index da bude iznad video kontrola */
+}
+
+.reminder-icon-text {
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 1px;
+  letter-spacing: 1px;
+  font-family: 'Cormorant Garamond', serif;
+  pointer-events: none;
+}
+
+.reminder-info-container .info-icon:hover {
+  background-color: #f8f1e5;
+  color: #2e6d9d;
+  transform: scale(1.1);
+}
+
+.reminder-info-card {
+  position: absolute;
+  bottom: 70px;
+  left: 10px;
+  width: 280px;
+  background-color: #f9f3e9;
+  border: 1px solid #8cbad9;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(46, 109, 157, 0.3);
+  overflow: hidden;
+  z-index: 10;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.reminder-info-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.reminder-info-card .card-header {
+  background: linear-gradient(135deg, #2e6d9d, #1c4c70);
+  color: #f8f1e5;
+}
+
+.reminder-info-card .info-item i {
+  color: #2e6d9d;
+}
+
+/* Responsive stilovi za reminder info */
+@media (max-width: 768px) {
+  .reminder-info-container .info-icon {
+    width: 45px;
+    height: 45px;
+    bottom: 65px;
+  }
+  
+  .reminder-info-card {
+    width: 260px;
+    bottom: 65px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reminder-info-container .info-icon {
+    width: 40px;
+    height: 40px;
+    bottom: 60px;
+  }
+  
+  .reminder-info-container .info-icon i {
+    font-size: 16px;
+  }
+  
+  .reminder-icon-text {
+    font-size: 9px;
+  }
+  
+  .reminder-info-card {
+    width: 240px;
+    max-width: 80vw;
+    bottom: 60px;
   }
 }

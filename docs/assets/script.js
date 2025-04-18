@@ -28,6 +28,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Kontrola za info karticu sa obaveštenjem o kupaćem
+    const reminderInfoButton = document.getElementById('reminderInfoButton');
+    const reminderInfoCard = document.getElementById('reminderInfoCard');
+    const closeReminderInfo = document.getElementById('closeReminderInfo');
+    
+    if (reminderInfoButton && reminderInfoCard && closeReminderInfo) {
+        // Prikazivanje info kartice
+        reminderInfoButton.addEventListener('click', function() {
+            reminderInfoCard.classList.add('visible');
+        });
+        
+        // Zatvaranje info kartice
+        closeReminderInfo.addEventListener('click', function() {
+            reminderInfoCard.classList.remove('visible');
+        });
+        
+        // Zatvaranje kad se klikne van kartice
+        document.addEventListener('click', function(event) {
+            if (reminderInfoCard.classList.contains('visible') && 
+                !reminderInfoCard.contains(event.target) && 
+                event.target !== reminderInfoButton) {
+                reminderInfoCard.classList.remove('visible');
+            }
+        });
+    }
+
     // Kontrola za info karticu o taksiju
     const taxiInfoButton = document.getElementById('taxiInfoButton');
     const taxiInfoCard = document.getElementById('taxiInfoCard');

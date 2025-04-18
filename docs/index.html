@@ -132,6 +132,30 @@
                                     <source src="assets/maderaVideo.mp4" type="video/mp4">
                                     Ваш прегледач не подржава HTML5 видео.
                                 </video>
+                                
+                                <!-- Nova ikonica sa obaveštenjem за купачи - само у видео слајду -->
+                                <div class="reminder-info-container" style="position: absolute; bottom: 70px; left: 20px; z-index: 20;">
+                                    <button class="info-icon" id="reminderInfoButton" style="position: static;">
+                                        <span class="reminder-icon-text">INFO</span>
+                                        <i class="fas fa-swimmer"></i>
+                                    </button>
+                                    <div class="reminder-info-card" id="reminderInfoCard">
+                                        <div class="card-header">
+                                            <h4>Важно обавештење</h4>
+                                            <button class="close-btn" id="closeReminderInfo">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="info-item">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                <div class="info-text">
+                                                    <strong>Не заборавите купаћи!</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button class="slider-nav prev-slide">
