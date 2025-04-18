@@ -1808,6 +1808,30 @@ input[type='radio']:checked::before {
   text-align: left;
 }
 
+.taxi-info-card .card-content {
+    padding: 15px;
+    color: var(--text-color);
+}
+
+.taxi-info-card .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-family: 'Shippori Mincho', serif;
+}
+
+.taxi-info-card .info-item i {
+    margin-right: 10px;
+    color: #9d2e23;
+    font-size: 18px;
+}
+
+.taxi-info-card .info-text {
+    flex-grow: 1;
+    line-height: 1.4;
+}
+
 .info-item {
   display: flex;
   align-items: flex-start;

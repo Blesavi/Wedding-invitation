@@ -219,9 +219,25 @@ document.addEventListener("DOMContentLoaded", function () {
             const guestsNames = document.getElementById('guests-names').value.trim();
             const message = document.getElementById('message').value.trim();
 
+            // Validacija gostiju - ako je broj gostiju 0, a unesena su imena gostiju
+            if (attendance === 'coming' && parseInt(guests) === 0 && guestsNames.length > 0) {
+                alert('Унели сте имена гостију али сте навели да немате госте (број: 0). Молимо вас да повећате број гостију или обришите имена.');
+                return;
+            }
+
+            // Validacija - provera da li broj imena gostiju odgovara broju gostiju
+            if (attendance === 'coming' && parseInt(guests) > 0 && guestsNames.length > 0) {
+                // Računamo koliko ima imena (razdvojenih zarezom)
+                const namesArray = guestsNames.split(',').map(name => name.trim()).filter(name => name.length > 0);
+                if (namesArray.length > parseInt(guests)) {
+                    alert(`Унели сте ${namesArray.length} имена гостију, али сте навели да долази ${guests} гост(а). Молимо вас ускладите број гостију или обришите вишак имена.`);
+                    return;
+                }
+            }
+
             const data = {
                 name: name,
-                attendance: attendance === 'coming' ? 'Da' : 'Ne',
+                attendance: attendance === 'coming' ? 'Да' : 'Не',
                 guests: guests,
                 guestsNames: guestsNames,
                 message: message,
