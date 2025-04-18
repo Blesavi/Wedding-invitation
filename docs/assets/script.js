@@ -28,6 +28,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Kontrola za info karticu o taksiju
+    const taxiInfoButton = document.getElementById('taxiInfoButton');
+    const taxiInfoCard = document.getElementById('taxiInfoCard');
+    const closeTaxiInfo = document.getElementById('closeTaxiInfo');
+    
+    if (taxiInfoButton && taxiInfoCard && closeTaxiInfo) {
+        // Prikazivanje info kartice
+        taxiInfoButton.addEventListener('click', function() {
+            taxiInfoCard.classList.add('visible');
+        });
+        
+        // Zatvaranje info kartice
+        closeTaxiInfo.addEventListener('click', function() {
+            taxiInfoCard.classList.remove('visible');
+        });
+        
+        // Zatvaranje kad se klikne van kartice
+        document.addEventListener('click', function(event) {
+            if (taxiInfoCard.classList.contains('visible') && 
+                !taxiInfoCard.contains(event.target) && 
+                event.target !== taxiInfoButton) {
+                taxiInfoCard.classList.remove('visible');
+            }
+        });
+    }
+
     const form = document.getElementById('rsvp-form');
     const initialConfirmation = document.getElementById('initial-confirmation');
     const returnConfirmation = document.getElementById('return-confirmation');
@@ -336,4 +362,68 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }, { passive: false });
     });
+
+    // Funkcionalnost za slider sa slikom i videom restorana
+    const prevButton = document.querySelector('.prev-slide');
+    const nextButton = document.querySelector('.next-slide');
+    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelectorAll('.slide');
+    const video = document.getElementById('restaurantVideo');
+
+    // Inicijalizacija slidera
+    let currentSlide = 0;
+    
+    // Funkcija za promenu slajda
+    function goToSlide(index) {
+        // Sakrij sve slajdove prvo
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Prikaži trenutni slajd
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        // Pauziraj video kad se prebaci na sliku
+        if (index === 0 && video) {
+            video.pause();
+        }
+        
+        // Pusti video kad se prebaci na video
+        if (index === 1 && video) {
+            // Dajemo malu pauzu pre puštanja da bi tranzicija izgledala glatko
+            setTimeout(() => {
+                video.play().catch(e => {
+                    // Hendlovanje greške - korisnik možda treba da prvo klikne na video
+                    console.log("Video zahteva interakciju korisnika za reprodukciju");
+                });
+            }, 500);
+        }
+        
+        currentSlide = index;
+    }
+
+    // Event listeneri za dugmad
+    if (prevButton) {
+        prevButton.addEventListener('click', function() {
+            currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+            goToSlide(currentSlide);
+        });
+    }
+    
+    if (nextButton) {
+        nextButton.addEventListener('click', function() {
+            currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+            goToSlide(currentSlide);
+        });
+    }
+    
+    // Event listeneri za tačkice indikatora
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            goToSlide(index);
+        });
+    });
+
+    // Inicijalno postavljanje na prvi slajd
+    goToSlide(0);
 });

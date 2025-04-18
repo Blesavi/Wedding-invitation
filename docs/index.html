@@ -69,6 +69,19 @@
                 <div class="divider-line"></div>
             </div>
             
+            <!-- Timeline Section (Raspored venčanja) -->
+            <div class="timeline-container">
+                <div class="timeline-image-wrapper">
+                    <img src="assets/raspored.png" alt="Распоред венчања" class="timeline-image">
+                </div>
+            </div>
+            
+            <div class="divider">
+                <div class="divider-line"></div>
+                <img src="assets/belocvece.png" class="divider-flower">
+                <div class="divider-line"></div>
+            </div>
+            
             <div class="venue">
                 <div class="church-venue">
                     <div class="title-with-icon">
@@ -76,10 +89,10 @@
                             <img src="assets/rings3.png" alt="Rings Icon" class="title-icon">
                             <h3>ЦРКВА СВЕТОГ ПАНТЕЛЕЈМОНА</h3>
                         </div>
-                        <p class="time-highlight">17:00</p>
+                        <p class="time-highlight">16:00</p>
                     </div>
                     <p class="ceremony-text">
-                        На дан Господњи, 12. јула 2025. године, у 17:00 часова, 
+                        На дан Господњи, 12. јула 2025. године, у 16:00 часова, 
                         у цркви Светог Пантелејмона у Нишу, уз Божји благослов 
                         и присуство драгих људи, везаћемо наше животе у светињу брака.
                     </p>
@@ -109,8 +122,28 @@
                         Након церемоније част нам је да Вас угостимо на весељу 
                         у хотелу "Мадера" (на отвореном) са почетком од 19:00 часова.
                     </p>
-                    <div class="image-container">
-                        <img src="assets/slikaRestoran.jpg" alt="Hotel Madera">
+                    <div class="image-container slider-container">
+                        <div class="slider-wrapper">
+                            <div class="slide active">
+                                <img src="assets/slikaRestoran.jpg" alt="Hotel Madera">
+                            </div>
+                            <div class="slide">
+                                <video id="restaurantVideo" poster="assets/slikaRestoran.jpg" controls>
+                                    <source src="assets/maderaVideo.mp4" type="video/mp4">
+                                    Ваш прегледач не подржава HTML5 видео.
+                                </video>
+                            </div>
+                        </div>
+                        <button class="slider-nav prev-slide">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="slider-nav next-slide">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="slide-indicator">
+                            <span class="dot active" data-slide="0"></span>
+                            <span class="dot" data-slide="1"></span>
+                        </div>
                         <a href="https://maps.app.goo.gl/M9VYhvq8dq6BJKAy9" target="_blank" class="location-overlay">
                             <i class="fas fa-utensils location-icon"></i>
                             <span>Локација ресторана</span>
@@ -120,15 +153,15 @@
                     <button class="calendar-btn" onclick="addWeddingToCalendar()" ontouchstart="addWeddingToCalendar()">
                         <i class="fas fa-calendar-plus"></i> Додај у календар
                     </button>
-                    <div class="divider">
-                        <div class="divider-line"></div>
-                        <!-- Koristite boho cvet kao u ostatku stranice -->
-                        <img src="assets/bohocvece1.png" class="divider-flower">
-                        <div class="divider-line"></div>
-                    </div>
                 </div>
             </div>
             
+            <div class="divider">
+                <div class="divider-line"></div>
+                <img src="assets/bohocvece1.png" class="divider-flower">
+                <div class="divider-line"></div>
+            </div>
+
             <div class="countdown">
                 <div class="image-overlay">
                     <img src="assets/wedding-bands-hands-bride-groom-with-beautiful-wedding-bouquet-made-greenery-white-flowers.jpg" alt="Срђан и Анђела">
@@ -237,6 +270,50 @@
                     <a href="https://drive.google.com/drive/folders/1bJS_3H2kh7kY5twduU1g8F4BzcFFAAXw?usp=drive_link" target="_blank">
                         <img src="assets/frame.png" alt="QR код за дељење фотографија">
                     </a>
+                </div>
+                
+                <!-- Taksi ikonica preseljena u donji desni ugao -->
+                <div class="taxi-info-container">
+                    <button class="info-icon" id="taxiInfoButton">
+                        <span class="taxi-icon-text">TAXI</span>
+                        <i class="fas fa-taxi"></i>
+                    </button>
+                    <div class="taxi-info-card" id="taxiInfoCard">
+                        <div class="card-header">
+                            <h4>Такси информације</h4>
+                            <button class="close-btn" id="closeTaxiInfo">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-item">
+                                <i class="fas fa-building"></i>
+                                <div class="info-text">
+                                    <strong>Такси служба:</strong> Први Такси Ниш
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="info-text">
+                                    <strong>Удаљеност до центра:</strong> 9 км
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <div class="info-text">
+                                    <strong>Просечна цена вожње:</strong> ~1000 РСД
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <div class="info-text">
+                                    <a href="tel:+381184500005" class="taxi-phone">
+                                        <strong>Позови такси:</strong> 018/4-500-005
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
