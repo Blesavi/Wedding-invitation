@@ -1985,8 +1985,8 @@ input[type='radio']:checked::before {
   position: absolute;
   bottom: 20px; /* Pozicionirano na dnu video klipa */
   left: 20px; /* Pozicionirano u donjem levom uglu */
-  width: 50px;
-  height: 50px;
+  width: 45px; /* Smanjeno sa 50px na 45px */
+  height: 45px; /* Smanjeno sa 50px na 45px */
   border-radius: 50%;
   background-color: #2e6d9d; /* Plava boja za razliku od taksi ikone */
   color: #f8f1e5;
@@ -2011,9 +2011,9 @@ input[type='radio']:checked::before {
 
 .reminder-info-card {
   position: absolute;
-  bottom: 70px;
-  left: 10px;
-  width: 280px;
+  top: 0;
+  left: 55px; /* Pomereno na 55px od leve ivice, odmah pored ikonice */
+  width: 220px; /* Smanjeno sa 280px na 220px */
   background-color: #f9f3e9;
   border: 1px solid #8cbad9;
   border-radius: 10px;
@@ -2035,44 +2035,83 @@ input[type='radio']:checked::before {
 .reminder-info-card .card-header {
   background: linear-gradient(135deg, #2e6d9d, #1c4c70);
   color: #f8f1e5;
+  padding: 8px 12px; /* Smanjeno sa 10px 15px */
+}
+
+.reminder-info-card .card-header h4 {
+  font-size: 14px; /* Smanjeno sa 16px */
+}
+
+.reminder-info-card .card-content {
+  padding: 10px; /* Smanjeno sa 15px */
 }
 
 .reminder-info-card .info-item i {
   color: #2e6d9d;
+  font-size: 14px; /* Smanjeno sa 16px */
+}
+
+.reminder-info-card .info-item {
+  margin-bottom: 8px; /* Smanjeno sa 12px */
+}
+
+.reminder-info-card .info-text {
+  font-size: 13px; /* Smanjeno sa 14px */
 }
 
 /* Responsive stilovi za reminder info */
 @media (max-width: 768px) {
   .reminder-info-container .info-icon {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     bottom: 65px;
   }
   
   .reminder-info-card {
-    width: 260px;
-    bottom: 65px;
+    width: 200px; /* Smanjeno sa 260px */
+    left: 50px; /* Prilagođeno za manju ikonicu */
   }
 }
 
 @media (max-width: 480px) {
   .reminder-info-container .info-icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     bottom: 60px;
   }
   
   .reminder-info-container .info-icon i {
-    font-size: 16px;
+    font-size: 14px;
   }
   
   .reminder-icon-text {
-    font-size: 9px;
+    font-size: 8px;
   }
   
   .reminder-info-card {
-    width: 240px;
+    width: 180px; /* Smanjeno sa 240px */
+    left: 45px; /* Prilagođeno za manju ikonicu */
     max-width: 80vw;
-    bottom: 60px;
+  }
+
+  .reminder-info-card .card-header {
+    padding: 6px 10px; /* Još manje za mobilne uređaje */
+  }
+
+  .reminder-info-card .card-header h4 {
+    font-size: 12px;
+  }
+
+  .reminder-info-card .card-content {
+    padding: 8px;
+  }
+
+  .reminder-info-card .info-text {
+    font-size: 12px;
+  }
+
+  .reminder-info-card .info-item i {
+    font-size: 12px;
+    margin-right: 6px;
   }
 }
