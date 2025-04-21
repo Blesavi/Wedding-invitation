@@ -357,7 +357,18 @@
         // Set lower volume for the restaurant video
         const restaurantVideo = document.getElementById('restaurantVideo');
         if (restaurantVideo) {
-            restaurantVideo.volume = 0.5;
+            // Set initial volume
+            restaurantVideo.volume = 0.3;
+            
+            // Make sure volume is set when video is loaded (for mobile devices)
+            restaurantVideo.addEventListener('loadedmetadata', function() {
+                this.volume = 0.3;
+            });
+            
+            // Ensure volume setting works after user interaction (important for iOS)
+            restaurantVideo.addEventListener('play', function() {
+                this.volume = 0.3;
+            });
         }
     </script>
 </body>
