@@ -122,6 +122,10 @@
                         <div class="slider-wrapper">
                             <div class="slide active">
                                 <img src="assets/slikaRestoran.jpg" alt="Hotel Madera">
+                                <a href="https://maps.app.goo.gl/M9VYhvq8dq6BJKAy9" target="_blank" class="location-overlay location-visible">
+                                    <i class="fas fa-utensils location-icon"></i>
+                                    <span>Локација ресторана</span>
+                                </a>
                             </div>
                             <div class="slide">
                                 <video id="restaurantVideo" poster="assets/slikaRestoran.jpg" controls>
@@ -164,10 +168,6 @@
                             <span class="dot active" data-slide="0"></span>
                             <span class="dot" data-slide="1"></span>
                         </div>
-                        <a href="https://maps.app.goo.gl/M9VYhvq8dq6BJKAy9" target="_blank" class="location-overlay">
-                            <i class="fas fa-utensils location-icon"></i>
-                            <span>Локација ресторана</span>
-                        </a>
                     </div>
                     <p>Булевар Др Ђинђића 18а, Ниш</p>
                     <button class="calendar-btn" onclick="addWeddingToCalendar()" ontouchstart="addWeddingToCalendar()">
@@ -339,5 +339,20 @@
             
         </div>
     </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const locationOverlay = document.querySelector('.location-overlay');
+        const dots = document.querySelectorAll('.dot');
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                locationOverlay.classList.toggle('location-visible', index === 0);
+            });
+        });
+    </script>
 </body>
 </html>
