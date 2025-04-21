@@ -353,6 +353,12 @@
                 locationOverlay.classList.toggle('location-visible', index === 0);
             });
         });
+
+        // Set lower volume for the restaurant video
+        const restaurantVideo = document.getElementById('restaurantVideo');
+        if (restaurantVideo) {
+            restaurantVideo.volume = 0.5;
+        }
     </script>
 </body>
 </html>
