@@ -251,12 +251,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            // Nova validacija - ako ima gostiju (broj > 0), ali nisu uneta imena
+            if (attendance === 'coming' && parseInt(guests) > 0 && guestsNames.length === 0) {
+                alert('Молимо вас да унесете имена и презимена свих гостију који долазе са вама.');
+                return;
+            }
+
             // Validacija - provera da li broj imena gostiju odgovara broju gostiju
             if (attendance === 'coming' && parseInt(guests) > 0 && guestsNames.length > 0) {
                 // Računamo koliko ima imena (razdvojenih zarezom)
                 const namesArray = guestsNames.split(',').map(name => name.trim()).filter(name => name.length > 0);
                 if (namesArray.length > parseInt(guests)) {
                     alert(`Унели сте ${namesArray.length} имена гостију, али сте навели да долази ${guests} гост(а). Молимо вас ускладите број гостију или обришите вишак имена.`);
+                    return;
+                }
+                
+                // Nova validacija - proverava da li broj imena odgovara broju gostiju
+                if (namesArray.length < parseInt(guests)) {
+                    alert(`Навели сте да долази ${guests} гост(а) са вама, али сте унели имена само за ${namesArray.length} гост(а). Молимо вас да унесете сва имена и презимена.`);
                     return;
                 }
             }
