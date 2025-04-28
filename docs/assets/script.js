@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Validacija - provera da li broj imena gostiju odgovara broju gostiju
             if (attendance === 'coming' && parseInt(guests) > 0 && guestsNames.length > 0) {
-                // Računamo koliko ima imena (razdvojenih zarezom)
+                // Račuamo koliko ima imena (razdvojenih zarezom)
                 const namesArray = guestsNames.split(',').map(name => name.trim()).filter(name => name.length > 0);
                 if (namesArray.length > parseInt(guests)) {
                     alert(`Унели сте ${namesArray.length} имена гостију, али сте навели да долази ${guests} гост(а). Молимо вас ускладите број гостију или обришите вишак имена.`);
