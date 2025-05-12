@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const timerElement = document.getElementById("timer");
 
     function updateCountdown() {
-        const weddingDate = new Date("2025-07-12T17:00:00");
+        const weddingDate = new Date("2025-07-12T16:00:00");
         const now = new Date();
         const timeDifference = weddingDate - now;
 
@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const endDate = '20250713T020000';
         createCalendarEvent(
             'Венчање - Срђан и Анђела',
-            'Венчање у цркви Светог Пантелејмона (17:00) и прослава у ресторану Мадера (19:00)',
+            'Венчање у цркви Светог Пантелејмона (16:00) и прослава у ресторану Мадера (19:00)',
             startDate,
             endDate
         );
